@@ -1,14 +1,24 @@
-# super-guacamole
+<!-- 
+*** Você olhou o README, parabéns
+*** Nesse markdown vou referenciar os links para facilitar legilibilidade
+-->
+
+<!-- PROJECTS SHIELDS -->
+![Contributors][contributors-badge]
+![License][license]
+![Languages][languages]
+![Top-language][top-language]
+
+
+# Digi Grotesk
 
 Repositório do projeto para a matéria Construção de Software
 
-## Contexto
-
--
+[INSERT NAME] é um software 
 
 =========================
 
-### Documentação
+## Documentação
 
 A equipe decidiu utilzar o Google Drive para armazenar a documentação, é possivel o controle de versões dos documentos escritos e a colaboração em equipe.
 
@@ -24,7 +34,7 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 - Diagrama de Caso de Uso
 - Descrição dos Casos de Uso
 
-### Frontend
+## Frontend
 
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
@@ -33,7 +43,7 @@ A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolh
 - CSS: vamos utilizar arquivos CSS padrão para complementar qualquer customização de estilo que seja necessário incorporar em cima do Bootstrap4;
 - Bootstrap4: framework de css que iremos utilizar para formar nossa identidade visual.
 
-### Backend
+## Backend
 
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
@@ -41,3 +51,11 @@ A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolh
 - MongoDb: para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
 - Mongoose: framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
 - Express: framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
+
+
+<!-- LINKS DE MARKDOWN E IMAGENS -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-badge]: https://img.shields.io/github/contributors/spacecactuar/super-guacamole?style=flat-square
+[license]: https://img.shields.io/github/license/spacecactuar/super-guacamole?style=flat-square
+[languages]: https://img.shields.io/github/languages/count/spacecactuar/super-guacamole?style=flat-square
+[top-language]: https://img.shields.io/github/languages/top/spacecactuar/super-guacamole?style=flat-square
