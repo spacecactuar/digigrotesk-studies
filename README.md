@@ -1,4 +1,4 @@
-<!-- 
+<!--
 *** Você olhou o README, parabéns
 *** Nesse markdown vou referenciar os links para facilitar legilibilidade
 -->
@@ -9,14 +9,68 @@
 ![Languages][languages]
 ![Top-language][top-language]
 
+<!-- Content Table-->
+## Tabela de Conteúdo
 
-# Digi Grotesk
+- [Sobre o Projeto](#sobre-o-projeto)
+  - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Como Começar](#como-começar)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Instalação](#instalação)
+- [Documentação](#documentação)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
 
-Repositório do projeto para a matéria Construção de Software
+<!-- About the Project-->
+## Sobre o Projeto
 
-[INSERT NAME] é um software 
+Repositório do projeto para a matéria Construção de Software.
+[INSERT NAME] é um software para gestão da vida acadêmica de discentes. Os discentes tem controle de seus períodos, disciplinas, tarefas, aulas, provas e afins de forma simples e visual, otimizando e facilitando seu dia a dia.
 
-=========================
+### Tecnologias Utilizadas
+
+Esse projeto é composto majoritariamente de Javascript e por isso se utiliza dos seguintes Frameworks.
+
+- [Express](https://expressjs.com)
+- [Angular](https://angular.io)
+
+
+<!-- Getting Started -->
+## Como Começar
+
+Para começar é só estar com o **Node.js e NPM** instalados na sua máquina. E caso tenha alguma dúvida pode seguir as instruções a baixo.
+
+### Pré-requisitos
+
+Para verificar a instalação do Node.
+
+```bash
+node -v
+```
+
+Para verificar a instalação do NPM.
+
+```sh
+npm -v
+```
+
+### Instalação
+1. Clone o repositório para a sua máquina
+```sh
+git clone https://github.com/spacecactuar/super-guacamole.git
+```
+2. Instale os pacotes NPM
+```sh
+npm install
+```
+3. Rode o programa
+```sh
+npm start
+```
+
+---
+
+<!-- Documentation  -->
 
 ## Documentação
 
@@ -34,7 +88,7 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 - Diagrama de Caso de Uso
 - Descrição dos Casos de Uso
 
-## Frontend
+### Frontend
 
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
@@ -43,7 +97,7 @@ A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolh
 - CSS: vamos utilizar arquivos CSS padrão para complementar qualquer customização de estilo que seja necessário incorporar em cima do Bootstrap4;
 - Bootstrap4: framework de css que iremos utilizar para formar nossa identidade visual.
 
-## Backend
+### Backend
 
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
@@ -51,7 +105,6 @@ A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolh
 - MongoDb: para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
 - Mongoose: framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
 - Express: framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
-
 
 <!-- LINKS DE MARKDOWN E IMAGENS -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
