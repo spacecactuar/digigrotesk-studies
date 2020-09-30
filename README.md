@@ -92,7 +92,7 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 
 ### Frontend
 
-A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
+A pasta **./public** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
 - Angular: será o framework que vamos utilizar para criar nossos controllers e fazer o gerenciamento de informação e uso da API Rest para comunicação com o backend;
 - HTML: os arquivos responsáveis pela view vão ser escritos diretamente em HTML;
