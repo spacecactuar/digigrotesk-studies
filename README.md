@@ -80,6 +80,8 @@ As documentações base deste projeto consistem em:
 
 - [Documento de Requisitos](https://docs.google.com/document/d/1nW10u2yDiluhZo_GnVky8zfrkgEGlzbv9Vv8s9B-U1E/edit?usp=sharing)
 
+- [Diagrama de Caso de uso](https://drive.google.com/file/d/1_J1_o2Cn_jvaA8xDJmoSDzqNWpNrp2QW/view?usp=sharing)
+
 O documento de Requisitos é um documento muito extenso que abrange diferentes tipos de documentação. Dentro do documento de requisitos temos:
 
 - Regras de Negocio
