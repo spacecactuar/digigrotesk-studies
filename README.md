@@ -43,9 +43,12 @@ Esse projeto é composto majoritariamente de Javascript e por isso se utiliza do
 
 Para começar é só estar com o **Node.js, NPM e MongoDB** instalados na sua máquina. E caso tenha alguma dúvida pode seguir as instruções a baixo.
 
+### Telas da Aplicação
+O layout da aplicação foi desenhado no Figma e está disponível [aqui]().
+
 ### Pré-requisitos
 
-```bash
+```
 Para verificar a instalação do Node, NPM e MongoDB.
 node -v
 npm -v
@@ -88,9 +91,6 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 - Listagem dos Perfis de Usuários
 - Diagrama de Caso de Uso
 - Descrição dos Casos de Uso
-
-### Telas da Aplicação
-O layout da aplicação está disponível [aqui]().
 
 ### Frontend
 
