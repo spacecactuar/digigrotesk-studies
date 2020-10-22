@@ -36,18 +36,19 @@ Esse projeto é composto majoritariamente de Javascript e por isso se utiliza do
 - [Express v4.17.1](https://expressjs.com)
 - [Mongoose v5.10.9](https://mongoosejs.com/)
 
-
+### Telas da Aplicação
+O layout da aplicação foi desenhado no Figma e está disponível [aqui]().
 
 <!-- Getting Started -->
 ## Como Começar
 
-Para começar é só estar com o **Node.js, NPM e MongoDB** instalados na sua máquina. E caso tenha alguma dúvida pode seguir as instruções a baixo.
+Para começar é necessário estar com as tecnologias abaixo **Node.js, NPM e MongoDB** instalados na sua máquina, caso tenha alguma dúvida siga o guia de instalação de cada uma delas.
 
-### Telas da Aplicação
-O layout da aplicação foi desenhado no Figma e está disponível [aqui]().
+- [Node.js vX.Y.Z](https://nodejs.org/en/)
+- [NPM vX.Y.Z](https://www.npmjs.com/) (Incluso no Node.js)
+- [MongoDB vX.Y.Z](https://www.mongodb.com/)
 
 ### Pré-requisitos
-
 ```
 Para verificar a instalação do Node, NPM e MongoDB.
 node -v
@@ -55,7 +56,7 @@ npm -v
 mongod --version
 ```
 
-### Instalação
+### Instalação e execução
 ```sh
 1. Clone o repositório para a sua máquina
 git clone https://github.com/spacecactuar/super-guacamole.git
@@ -69,6 +70,7 @@ npm start
 TODO
 
 ### Arquitetura
+TODO
 
 ---
 
