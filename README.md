@@ -25,48 +25,47 @@
 ## Sobre o Projeto
 
 Repositório do projeto para a matéria Construção de Software.
-[INSERT NAME] é um software para gestão da vida acadêmica de discentes. Os discentes tem controle de seus períodos, disciplinas, tarefas, aulas, provas e afins de forma simples e visual, otimizando e facilitando seu dia a dia.
+**Digi Grotesk studies** é um software para gestão da vida acadêmica de discentes. Os discentes tem controle de seus períodos, disciplinas, tarefas, aulas, provas e afins de forma simples e visual, otimizando e facilitando seu dia a dia.
 
 ### Tecnologias Utilizadas
 
 Esse projeto é composto majoritariamente de Javascript e por isso se utiliza dos seguintes Frameworks.
 
-- [Express](https://expressjs.com)
-- [Angular](https://angular.io)
+- [Bootstrap4 v4.5.3](https://getbootstrap.com/)
+- [Angular v7.1.4](https://angular.io)
+- [Express v4.17.1](https://expressjs.com)
+- [Mongoose v5.10.9](https://mongoosejs.com/)
+
 
 
 <!-- Getting Started -->
 ## Como Começar
 
-Para começar é só estar com o **Node.js e NPM** instalados na sua máquina. E caso tenha alguma dúvida pode seguir as instruções a baixo.
+Para começar é só estar com o **Node.js, NPM e MongoDB** instalados na sua máquina. E caso tenha alguma dúvida pode seguir as instruções a baixo.
 
 ### Pré-requisitos
 
-Para verificar a instalação do Node.
-
 ```bash
+Para verificar a instalação do Node, NPM e MongoDB.
 node -v
-```
-
-Para verificar a instalação do NPM.
-
-```sh
 npm -v
+mongod --version
 ```
 
 ### Instalação
+```sh
 1. Clone o repositório para a sua máquina
-```sh
 git clone https://github.com/spacecactuar/super-guacamole.git
-```
 2. Instale os pacotes NPM
-```sh
 npm install
-```
 3. Rode o programa
-```sh
 npm start
 ```
+
+#### Atualizando o banco de dados
+TODO
+
+### Arquitetura
 
 ---
 
@@ -89,6 +88,9 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 - Listagem dos Perfis de Usuários
 - Diagrama de Caso de Uso
 - Descrição dos Casos de Uso
+
+### Telas da Aplicação
+O layout da aplicação está disponível [aqui]().
 
 ### Frontend
 
