@@ -14,9 +14,12 @@
 
 - [Sobre o Projeto](#sobre-o-projeto)
   - [Tecnologias Utilizadas](#tecnologias-utilizadas)
+  - [Telas da Aplicação](#telas-da-aplicação)
 - [Como Começar](#como-começar)
   - [Pré-requisitos](#pré-requisitos)
-  - [Instalação](#instalação)
+  - [Instalação e execução](#instalação-e-execução)
+  - [Atualizando o Banco de Dados](#atualizando-o-banco-de-dados)
+  - [Arquitetura](#arquitetura)
 - [Documentação](#documentação)
   - [Frontend](#frontend)
   - [Backend](#backend)
@@ -115,6 +118,16 @@ A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolh
 - MongoDb (v4.4): para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
 - Mongoose (v5.10.9): framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
 - Express (v4.17.1): framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
+
+## Equipe Digi Grotesk
+Todos os artefatos desse projeto foram produzidos pela equipe digigrotesk, que é composta por:
+
+- Ariel Marte - 201900264
+- Julien David - 201508736
+- Marco Feitosa - 201905542
+- Pedro Henrique C. e Silva - 201602512
+
+
 
 <!-- LINKS DE MARKDOWN E IMAGENS -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
