@@ -70,7 +70,7 @@ npm start
 TODO
 
 ### Arquitetura
-TODO
+- [Diagrama de Arquitetura](https://drive.google.com/file/d/1D3ytcmxb1eZ3RUNFNHrX8GmTNPnHovXS/view?usp=sharing)
 
 ---
 
