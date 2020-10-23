@@ -44,8 +44,8 @@ O layout da aplicação foi desenhado no Figma e está disponível [aqui]().
 
 Para começar é necessário estar com as tecnologias abaixo **Node.js, NPM e MongoDB** instalados na sua máquina, caso tenha alguma dúvida siga o guia de instalação de cada uma delas.
 
-- [Node.js vX.Y.Z](https://nodejs.org/en/)
-- [NPM vX.Y.Z](https://www.npmjs.com/) (Incluso no Node.js)
+- [Node.js v8.13.0](https://nodejs.org/en/)
+- [NPM v6.4.1](https://www.npmjs.com/) (Incluso no Node.js)
 - [MongoDB vX.Y.Z](https://www.mongodb.com/)
 
 ### Pré-requisitos
@@ -86,6 +86,8 @@ As documentações base deste projeto consistem em:
 
 - [Diagrama de Caso de uso](https://drive.google.com/file/d/1_J1_o2Cn_jvaA8xDJmoSDzqNWpNrp2QW/view?usp=sharing)
 
+- [Diagrama de Classe](https://drive.google.com/file/d/14fJPVrA4tYfEQRtrdnIvbPrMt-U4ZL7U/view?usp=sharing)
+
 O documento de Requisitos é um documento muito extenso que abrange diferentes tipos de documentação. Dentro do documento de requisitos temos:
 
 - Regras de Negocio
@@ -98,19 +100,19 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 
 A pasta **./public** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
-- Angular: será o framework que vamos utilizar para criar nossos controllers e fazer o gerenciamento de informação e uso da API Rest para comunicação com o backend;
+- Angular (v7.1.4): será o framework que vamos utilizar para criar nossos controllers e fazer o gerenciamento de informação e uso da API Rest para comunicação com o backend;
 - HTML: os arquivos responsáveis pela view vão ser escritos diretamente em HTML;
-- CSS: vamos utilizar arquivos CSS padrão para complementar qualquer customização de estilo que seja necessário incorporar em cima do Bootstrap4;
+- CSS3: vamos utilizar arquivos CSS padrão para complementar qualquer customização de estilo que seja necessário incorporar em cima do Bootstrap4;
 - Bootstrap4: framework de css que iremos utilizar para formar nossa identidade visual.
 
 ### Backend
 
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
-- NodeJs: como uma ideia de facilitar a curva de aprendizado da equipe e experiência já obtida foi escolhido o NodeJs para ser a base do backend. Onde teremos um produto de software com javascript de ponta a ponta;
+- NodeJs (v8.13.0): como uma ideia de facilitar a curva de aprendizado da equipe e experiência já obtida foi escolhido o NodeJs para ser a base do backend. Onde teremos um produto de software com javascript de ponta a ponta;
 - MongoDb: para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
-- Mongoose: framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
-- Express: framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
+- Mongoose (v5.10.9): framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
+- Express (v4.17.1): framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
 
 <!-- LINKS DE MARKDOWN E IMAGENS -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
