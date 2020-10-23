@@ -46,7 +46,7 @@ Para começar é necessário estar com as tecnologias abaixo **Node.js, NPM e Mo
 
 - [Node.js v8.13.0](https://nodejs.org/en/)
 - [NPM v6.4.1](https://www.npmjs.com/) (Incluso no Node.js)
-- [MongoDB vX.Y.Z](https://www.mongodb.com/)
+- [MongoDB v4.4](https://www.mongodb.com/)
 
 ### Pré-requisitos
 ```
@@ -92,7 +92,7 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 
 - Descrição da aplicação
 - Listagem do Stakeholder
-- Listagem dos Perfis de Usuários]
+- Listagem dos Perfis de Usuários
 - Diagrama de Classe
 - Diagrama de Caso de Uso
 - Descrição dos Casos de Uso
@@ -112,7 +112,7 @@ A pasta **./public** é reponsável por armazenar o frontend. Onde as stacks esc
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
 - NodeJs (v8.13.0): como uma ideia de facilitar a curva de aprendizado da equipe e experiência já obtida foi escolhido o NodeJs para ser a base do backend. Onde teremos um produto de software com javascript de ponta a ponta;
-- MongoDb: para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
+- MongoDb (v4.4): para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
 - Mongoose (v5.10.9): framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
 - Express (v4.17.1): framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
 
