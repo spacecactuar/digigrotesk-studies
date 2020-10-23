@@ -90,11 +90,13 @@ As documentações base deste projeto consistem em:
 
 O documento de Requisitos é um documento muito extenso que abrange diferentes tipos de documentação. Dentro do documento de requisitos temos:
 
-- Regras de Negocio
+- Descrição da aplicação
 - Listagem do Stakeholder
-- Listagem dos Perfis de Usuários
+- Listagem dos Perfis de Usuários]
+- Diagrama de Classe
 - Diagrama de Caso de Uso
 - Descrição dos Casos de Uso
+- Diagrama de Arquitetura
 
 ### Frontend
 
