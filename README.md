@@ -40,7 +40,7 @@ Esse projeto é composto majoritariamente de Javascript e por isso se utiliza do
 - [Mongoose v5.10.9](https://mongoosejs.com/)
 
 ### Telas da Aplicação
-O layout da aplicação foi desenhado no Figma e está disponível [aqui]().
+O layout da aplicação foi desenhado no Figma e está disponível [aqui](https://discordapp.com/channels/754104294583566397/765606505465774120/769382186222485505).
 
 <!-- Getting Started -->
 ## Como Começar
