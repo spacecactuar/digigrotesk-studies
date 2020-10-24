@@ -40,7 +40,7 @@ Esse projeto é composto majoritariamente de Javascript e por isso se utiliza do
 - [Mongoose v5.10.9](https://mongoosejs.com/)
 
 ### Telas da Aplicação
-O layout da aplicação foi desenhado no Figma e está disponível [aqui](https://discordapp.com/channels/754104294583566397/765606505465774120/769382186222485505).
+O layout da aplicação foi desenhado no Figma e está disponível [aqui](https://www.figma.com/proto/9Lx0Og1sdE6bFXRwFtKl8y/Digi-Grotesk?node-id=15%3A31&viewport=424%2C-1019%2C0.5&scaling=min-zoom).
 
 <!-- Getting Started -->
 ## Como Começar
