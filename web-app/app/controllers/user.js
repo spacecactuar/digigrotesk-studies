@@ -1,16 +1,16 @@
+const jwt = require('jwt-simple')
 const userRepository = require('../repositories/user')
 
 async function createUser(newUser) {
     try {
         validateUser(newUser)
         let user = newUser
-
-        // TODO - criar metodo para criar um token a partir do email do user
+        
+        let token = jwt.encode(user.email, 'secrect.key.super..secret')
         user.auth = {
-            key: 'secret',
-            token: 'token'
+            key: 'digiGrotesk-HelperClass',
+            token: token
         }
-
         user.createDate = new Date()
 
         return await userRepository.create(user)
