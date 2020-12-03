@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const userController = require('../controllers/user')
 
 router.post('/', createUser)
 
@@ -9,9 +10,11 @@ module.exports = router
 
 async function createUser(req, res) {
     try {
-        res.status(201).send(req.body)
+        let user = req.body
+        user = await userController.createUser(user)
+        res.status(201).send({"email": user.email, "key": user.auth.key, "token": user.auth.token})
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
 

@@ -3,9 +3,9 @@ const Schema = mongoose.Schema
 
 const schema = new Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, index: true, unique: true },
     password: { type: String, required: true },
-    createDate: { type: String, required: true },
+    createDate: { type: Date, required: true },
     status: { type: String , default: 'active'},
     auth: {
         key: String,
@@ -13,4 +13,4 @@ const schema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Semesters', schema)
+module.exports = mongoose.model('Users', schema)

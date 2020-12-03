@@ -13,7 +13,8 @@ const classRoute = require('./routes/class')
 const app = express()
 mongoose.connect('mongodb+srv://pedro:teste123456@qa.xrzgw.mongodb.net/QA?retryWrites=true&w=majority',{
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 })
 
 app.use(bodyParser.json())
