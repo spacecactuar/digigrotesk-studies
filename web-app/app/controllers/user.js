@@ -5,7 +5,7 @@ async function createUser(newUser) {
     try {
         validateUser(newUser)
         let user = newUser
-        
+
         let token = jwt.encode(user.email, 'secrect.key.super..secret')
         user.auth = {
             key: 'digiGrotesk-HelperClass',
@@ -23,9 +23,9 @@ module.exports.createUser = createUser
 
 function validateUser (user) {
     try {
-        if (!user || !user.email)throw {code: 400, message:'É obrigatório passar um email de usuário e senha para cadastro!'}
-        if (!validateEmail(user.email)) throw {code: 400, message:'É obrigatório passar um email válido para o usuário!'}
-        if (!user.password) throw {code: 400, message:'É obrigatório passar uma senha válida para o usuário!'}
+        if (!user || !user.email) throw { code: 400, message: 'É obrigatório passar um email de usuário e senha para cadastro!' }
+        if (!validateEmail(user.email)) throw { code: 400, message: 'É obrigatório passar um email válido para o usuário!' }
+        if (!user.password) throw { code: 400, message: 'É obrigatório passar uma senha válida para o usuário!' }
     } catch(error) {
         throw error
     }

@@ -12,7 +12,7 @@ async function createUser(req, res) {
     try {
         let user = req.body
         user = await userController.createUser(user)
-        res.status(201).send({"email": user.email, "key": user.auth.key, "token": user.auth.token})
+        res.status(201).send({"email": user.email, "x-key-api": user.auth.key, "x-token-api": user.auth.token})
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
