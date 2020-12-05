@@ -4,6 +4,7 @@ const middleware = require('../controllers/middleware')
 const semeterController = require('../controllers/semester')
 
 router.all('/', middleware.authenticateByToken)
+router.all('/*', middleware.authenticateByToken)
 
 router.get('/', getAllSemesters)
 
@@ -19,15 +20,19 @@ module.exports = router
 
 async function getAllSemesters(req, res) {
     try {
-        res.status(201).send(req.body)
+        let semesters = await semeterController.getAllUserSemesters(req.user)
+        res.status(200).send(semesters)
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
 
 async function getSemester(req, res) {
     try {
-        res.status(201).send(req.body)
+        let user = req.user
+        let id = req.params.id
+        let semester = await semeterController.getUserSemester(user, id)
+        res.status(200).send(semester)
     } catch(error) {
         res.status(500).send(error.message)
     }
@@ -44,10 +49,13 @@ async function createSemester(req, res) {
 
 async function updateSemester(req, res) {
     try {
-        const id = req.params.id
-        res.status(201).send({id: id, item: req.body})
+        let user = req.user
+        let id = req.params.id
+        let update = req.body
+        await semeterController.updateSemester(user, id, update)
+        res.status(201).send('Período atualizado')
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
 
