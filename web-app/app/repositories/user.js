@@ -10,7 +10,7 @@ module.exports.create = async function(user) {
 
 module.exports.getByToken = async function (token) {
     try {
-        return await User.find({'auth.token': token})
+        return await User.findOne({'auth.token': token})
     } catch (error) {
         throw error
     }

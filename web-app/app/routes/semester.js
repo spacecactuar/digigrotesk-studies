@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const middleware = require('../controllers/middleware')
+const semeterController = require('../controllers/semester')
 
 router.all('/', middleware.authenticateByToken)
 
@@ -34,9 +35,10 @@ async function getSemester(req, res) {
 
 async function createSemester(req, res) {
     try {
-        res.status(201).send(req.body)
+        await semeterController.createSemester(req.user, req.body)
+        res.status(201).send('Período criado!')
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
 

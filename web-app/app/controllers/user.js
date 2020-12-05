@@ -11,7 +11,7 @@ async function createUser(newUser) {
             key: 'digiGrotesk-HelperClass',
             token: token
         }
-        user.createDate = new Date()
+        user.create = new Date()
 
         return await userRepository.create(user)
     } catch(error) {
@@ -30,8 +30,10 @@ function validateUser (user) {
         throw error
     }
 }
+module.exports.validateUser = validateUser
 
 function validateEmail(email) {
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(String(email).toLowerCase());
 }
+module.exports.validateEmail = validateEmail
