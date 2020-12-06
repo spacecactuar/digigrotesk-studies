@@ -115,3 +115,20 @@ async function deleteExamsFromSubject(user, subjectId) {
     }
 }
 module.exports.deleteExamsFromSubject = deleteExamsFromSubject
+
+async function getExamsFromSubject(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar o id da disciplina na requisição para buscar as provas!' }
+
+        let filter = {}
+        filter['subject.id'] = id
+        filter['subject.author'] = user._id
+
+        let exams = examRepository.get(filter)
+        return exams
+    } catch(error) {
+        console.error(`[getExamsFromSubject] Erro ao buscar exmas para o subject ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.getExamsFromSubject = getExamsFromSubject
