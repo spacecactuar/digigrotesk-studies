@@ -1,4 +1,5 @@
 const semesterRepository = require('../repositories/semester')
+const subjectController = require('./subject')
 
 async function createSemester(user, newSemester) {
     try {
@@ -100,3 +101,17 @@ function validateUpdate(update, semester) {
         throw error
     }
 }
+
+async function deleteSemester(user, id) {
+    try {
+        let semester = await semesterRepository.getById(user._id, id)
+        if (!semester) throw { code: 406, message: 'O período selecionado para exclusão não existe!'}
+
+        await subjectController.deleteSubjectsFromSemester(user, semester._id)
+        await semesterRepository.deleteById(user._id, semester._id)
+    } catch(error) {
+        console.error(`[deleteSemester] Erro ao deleter semeter ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.deleteSemester = deleteSemester

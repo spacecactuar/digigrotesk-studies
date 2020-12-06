@@ -53,7 +53,7 @@ async function updateSemester(req, res) {
         let id = req.params.id
         let update = req.body
         await semeterController.updateSemester(user, id, update)
-        res.status(201).send('Período atualizado')
+        res.status(201).send('Período atualizado!')
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
@@ -61,9 +61,11 @@ async function updateSemester(req, res) {
 
 async function deleteSemester(req, res) {
     try {
-        const id = req.params.id
-        res.status(201).send({id: id, item: req.body})
+        let user = req.user
+        let id = req.params.id
+        await semeterController.deleteSemester(user, id)
+        res.status(200).send('Período excluido!')
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
