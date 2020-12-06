@@ -111,3 +111,19 @@ function validateUpdate(update) {
         throw error
     }
 }
+
+async function getAllSubjectsFromSemester(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar o id do período na requisição para buscar as disciplinas!' }
+
+        let filter = {
+            author: user._id,
+            semester: id
+        }
+        let subjects = await subjectRepository.get(filter)
+        return subjects
+    } catch(error) {
+        console.error(`[getAllSubjectsFromSemester]`)
+    }
+}
+module.exports.getAllSubjectsFromSemester =getAllSubjectsFromSemester

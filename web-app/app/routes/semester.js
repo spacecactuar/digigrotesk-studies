@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const middleware = require('../controllers/middleware')
 const semesterController = require('../controllers/semester')
+const subjectController = require('../controllers/subject')
 
 router.all('/', middleware.authenticateByToken)
 router.all('/*', middleware.authenticateByToken)
@@ -15,6 +16,8 @@ router.post('/', createSemester)
 router.put('/:id', updateSemester)
 
 router.delete('/:id', deleteSemester)
+
+router.get('/:id/subjects', getAllSubjectsFromSemester)
 
 module.exports = router
 
@@ -65,6 +68,17 @@ async function deleteSemester(req, res) {
         let id = req.params.id
         await semesterController.deleteSemester(user, id)
         res.status(200).send('Período excluido!')
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function getAllSubjectsFromSemester(req, res) {
+    try {
+        let user = req.user
+        let id = req.params.id
+        let subjects = await subjectController.getAllSubjectsFromSemester(user, id)
+        res.status(200).send(subjects)
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
