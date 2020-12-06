@@ -8,14 +8,6 @@ module.exports.create = async function(semester) {
     }
 }
 
-module.exports.getAll = async function(author) {
-    try {
-        return await Semester.find({ 'author': author })
-    } catch(error) {
-        throw error
-    }
-}
-
 module.exports.getById = async function(author, id) {
     try {
         return await Semester.findOne({ '_id': id, 'author': author })

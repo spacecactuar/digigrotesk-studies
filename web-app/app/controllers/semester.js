@@ -7,6 +7,7 @@ async function createSemester(user, newSemester) {
 
         let semester = newSemester
         semester.author = user._id
+        semester.create = new Date()
 
         return await semesterRepository.create(semester)
     } catch(error) {
@@ -46,7 +47,7 @@ function validateDate(semester) {
 
 async function getAllUserSemesters(user) {
     try {
-        let  semesters = await semesterRepository.getAll(user._id)
+        let semesters = await semesterRepository.get({ 'author': user._id })
         return semesters
     } catch(error) {
         console.error(`[getAllUserSemesters] Erro ao buscar semesters do user ${user._id} - ${user.email}`)
@@ -71,6 +72,7 @@ module.exports.getUserSemester = getUserSemester
 
 async function updateSemester(user, id, updateSemester) {
     try {
+        if (!updateSemester || Object.keys(updateSemester) == 0) return
         if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar um período específico!' }
 
         let semester = await semesterRepository.getById(user._id, id)
@@ -86,7 +88,7 @@ module.exports.updateSemester = updateSemester
 
 function validateUpdate(update, semester) {
     try {
-        if (update._id) throw { code: 400, message: 'Não é possível atualizar o id do período!' }
+        if (update._id || update.id) throw { code: 400, message: 'Não é possível atualizar o id do período!' }
         if (update.author) throw { code: 400, message: 'Não é possível atualizar o author do período!' }
         if (update.startDate && !update.endDate) {
             update.startDate = new Date(update.startDate)
@@ -107,7 +109,7 @@ async function deleteSemester(user, id) {
         let semester = await semesterRepository.getById(user._id, id)
         if (!semester) throw { code: 406, message: 'O período selecionado para exclusão não existe!'}
 
-        await subjectController.deleteSubjectsFromSemester(user, semester._id)
+        await subjectController.deleteSubject(user, null, semester._id)
         await semesterRepository.deleteById(user._id, semester._id)
     } catch(error) {
         console.error(`[deleteSemester] Erro ao deleter semeter ${id} do user ${user._id} - ${user.email}. ${error.message}`)
