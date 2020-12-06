@@ -123,7 +123,8 @@ async function getSubjectsFromSemester(user, id) {
         let subjects = await subjectRepository.get(filter)
         return subjects
     } catch(error) {
-        console.error(`[getAllSubjectsFromSemester]`)
+        console.error(`[getAllSubjectsFromSemester] Erro ao buscar subjects para o semester ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
     }
 }
 module.exports.getSubjectsFromSemester = getSubjectsFromSemester
