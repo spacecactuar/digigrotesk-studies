@@ -8,7 +8,8 @@ const schema = new Schema({
         author: { type: mongoose.Schema.Types.ObjectId, required: true }
     },
     theme: String,
-    date: { type: Date, required: true }
+    date: { type: Date, required: true },
+    create: { type: Date, required: true }
 })
 
 module.exports = mongoose.model('Exams', schema)

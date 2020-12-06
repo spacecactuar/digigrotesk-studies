@@ -19,8 +19,8 @@ module.exports.createSemester = createSemester
 
 function validateSemester(semester) {
     try {
-        if (!semester) throw { code: 400, message: 'É obrigatório passar um período para ser salvo!' }
-        if (!semester.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação para o períoodo que será salvo!' }
+        if (!semester || Object.keys(semester) == 0) throw { code: 400, message: 'É obrigatório passar um período para ser salvo!' }
+        if (!semester.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação do períoodo!' }
         if (!semester.startDate) throw { code: 400, message: 'É obrigatório passar a data de início do período!' }
         if (!semester.endDate) throw { code: 400, message: 'É obrigatório passar a data de término do período!' }
 

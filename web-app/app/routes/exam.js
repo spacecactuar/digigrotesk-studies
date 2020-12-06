@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const middleware = require('../controllers/middleware')
+const examController = require('../controllers/exam')
 
 router.all('/', middleware.authenticateByToken)
 router.all('/*', middleware.authenticateByToken)
@@ -19,15 +20,19 @@ module.exports = router
 
 async function getAllExams(req, res) {
     try {
-        res.status(201).send(req.body)
+        let exams = await examController.getAllUserExams(req.user)
+        res.status(200).send(exams)
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
 
 async function getExam(req, res) {
     try {
-        res.status(201).send(req.body)
+        let user = req.user
+        let id = req.params.id
+        let exam = await examController.getUserExam(user, id)
+        res.status(200).send(exam)
     } catch(error) {
         res.status(500).send(error.message)
     }
@@ -35,16 +40,20 @@ async function getExam(req, res) {
 
 async function createExam(req, res) {
     try {
-        res.status(201).send(req.body)
+        await examController.createExam(req.user, req.body)
+        res.status(201).send('Prova criada!')
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }
 
 async function updateExam(req, res) {
     try {
-        const id = req.params.id
-        res.status(201).send({id: id, item: req.body})
+        let user = req.user
+        let id = req.params.id
+        let update = req.body
+        await examController.updateExam(user, id, update)
+        res.status(200).send('Prova atualizada!')
     } catch(error) {
         res.status(500).send(error.message)
     }
@@ -52,8 +61,10 @@ async function updateExam(req, res) {
 
 async function deleteExam(req, res) {
     try {
-        const id = req.params.id
-        res.status(201).send({id: id, item: req.body})
+        let user = req.user
+        let id = req.params.id
+        await examController.deleteExam(user, id)
+        res.status(200).send('Prova deletada!')
     } catch(error) {
         res.status(500).send(error.message)
     }

@@ -1,4 +1,99 @@
+const subjectRepository = require('../repositories/subject')
 const examRepository = require('../repositories/exam')
+
+async function createExam(user, newExam) {
+    try {
+        validateExam(newExam)
+
+        let subject = await subjectRepository.getById(user._id, newExam.subject)
+
+        let exam = newExam
+        exam.date = new Date(exam.date)
+        exam.subject = {
+            id: subject._id,
+            author: user._id
+        }
+        exam.create = new Date()
+
+        return await examRepository.create(exam)
+    } catch(error){
+        console.error(`[createExam] Erro ao criar exam para o user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.createExam = createExam
+
+function validateExam(exam) {
+    try {
+        if (!exam || Object.keys(exam) == 0) throw { code: 400, message: 'É obrigatório passar uma prova para ser salva!' }
+        if (!exam.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação da prova!' }
+        if (!exam.subject) throw { code: 400, message: 'É obrigatório passar a qual disciplina esta prova vai pertencer!' }
+        if (!exam.date) throw { code: 400, message: 'É obrigatório passar a data de realização da prova!' }
+    } catch(error) {
+        throw error
+    }
+}
+
+async function getAllUserExams(user) {
+    try {
+        let exams = await examRepository.get({ 'subject.author': user._id })
+        return exams
+    } catch(error) {
+        console.error(`[getAllUserExams] Erro ao buscar exams do user ${user._id} - ${user.email}`)
+        throw { code: 500, message: 'Erro interno do servidor' }
+    }
+}
+module.exports.getAllUserExams = getAllUserExams
+
+async function getUserExam(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar uma prova específica!' }
+
+        let exam = await examRepository.getById(user._id, id)
+        return exam
+    } catch(error) {
+        console.error(`[getUser] Erro ao buscar exam do user ${user._id} - ${user.email}. ${error.message}`)
+        if (error.code) throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
+    }
+}
+module.exports.getUserExam = getUserExam
+
+async function updateExam(user, id, updateExam) {
+    try {
+        if (!updateExam || Object.keys(updateExam) == 0) return
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar uma prova específica!' }
+
+        validateUpdate(updateExam)
+        if (updateExam.date)
+            updateExam.date = new Date(updateExam.date)
+
+        return await examRepository.updateById(user._id, id, updateExam)
+    } catch(error) {
+        console.error(`[updateExam] Erro ao atualizar exam ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.updateExam = updateExam
+
+function validateUpdate(update) {
+    try {
+        if (update.subject) throw { code: 400, message: 'Não é possível atualizar a disciplina da prova!' }
+    } catch(error) {
+        throw errpr
+    }
+}
+
+async function deleteExam(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para deletar uma prova específica!' }
+        return await examRepository.deleteById(user._id, id)
+    } catch(error) {
+        console.error(`[deleteExam] Erro ao deletar exam ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.deleteExam = deleteExam
 
 async function deleteExamsFromSubject(user, subjectId) {
     try {
