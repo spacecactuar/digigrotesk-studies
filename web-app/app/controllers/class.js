@@ -2,12 +2,9 @@ const classRepository = require('../repositories/class')
 
 async function deleteClassesFromSubject(user, subjectId) {
     try {
-        let filter = {
-            subject: {
-                id: subjectId,
-                author: user._id
-            }
-        }
+        let filter = {}
+        filter['subject.id'] = subjectId
+        filter['subject.author'] = req._id
 
         let classes = await classRepository.get(filter)
 

@@ -97,12 +97,9 @@ module.exports.deleteExam = deleteExam
 
 async function deleteExamsFromSubject(user, subjectId) {
     try {
-        let filter = {
-            subject: {
-                id: subjectId,
-                author: user._id
-            }
-        }
+        let filter = {}
+        filter['subject.id'] = subjectId
+        filter['subject.author'] = user._id
 
         let exams = await examRepository.get(filter)
 

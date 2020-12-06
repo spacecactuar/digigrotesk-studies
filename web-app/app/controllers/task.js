@@ -2,12 +2,9 @@ const taskRepository = require('../repositories/task')
 
 async function deleteTasksFromSubject(user, subjectId) {
     try {
-        let filter = {
-            subject: {
-                id: subjectId,
-                author: user._id
-            }
-        }
+        let filter = {}
+        filter['subject.id'] = subjectId
+        filter['subject.author'] = user._id
 
         let tasks = await taskRepository.get(filter)
 
