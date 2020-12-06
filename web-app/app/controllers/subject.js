@@ -112,7 +112,7 @@ function validateUpdate(update) {
     }
 }
 
-async function getAllSubjectsFromSemester(user, id) {
+async function getSubjectsFromSemester(user, id) {
     try {
         if (!id) throw { code: 400, message: 'É obrigatório passar o id do período na requisição para buscar as disciplinas!' }
 
@@ -126,4 +126,4 @@ async function getAllSubjectsFromSemester(user, id) {
         console.error(`[getAllSubjectsFromSemester]`)
     }
 }
-module.exports.getAllSubjectsFromSemester =getAllSubjectsFromSemester
+module.exports.getSubjectsFromSemester = getSubjectsFromSemester
