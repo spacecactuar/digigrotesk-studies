@@ -25,7 +25,7 @@ module.exports.createSubject = createSubject
 
 function validateSubject(subject) {
     try {
-        if (!subject || Object.keys(subject) == 0) throw { code: 400, message: 'É obrigatório passar uma disciplina para ser salva!' }
+        if (!subject || Object.keys(subject).length == 0) throw { code: 400, message: 'É obrigatório passar uma disciplina para ser salva!' }
         if (!subject.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação para a disciplina que será salva!' }
         if (!subject.semester) throw { code: 400, message: 'É obrigatório passar a qual período esta disciplina vai pertencer!' }
     } catch(error) {

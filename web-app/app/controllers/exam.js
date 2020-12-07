@@ -25,7 +25,7 @@ module.exports.createExam = createExam
 
 function validateExam(exam) {
     try {
-        if (!exam || Object.keys(exam) == 0) throw { code: 400, message: 'É obrigatório passar uma prova para ser salva!' }
+        if (!exam || Object.keys(exam).length == 0) throw { code: 400, message: 'É obrigatório passar uma prova para ser salva!' }
         if (!exam.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação da prova!' }
         if (!exam.subject) throw { code: 400, message: 'É obrigatório passar a qual disciplina esta prova vai pertencer!' }
         if (!exam.date) throw { code: 400, message: 'É obrigatório passar a data de realização da prova!' }
