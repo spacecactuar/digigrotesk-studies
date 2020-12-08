@@ -3,7 +3,6 @@ const router = express.Router()
 const middleware = require('../controllers/middleware')
 const taskController = require('../controllers/task')
 
-router.all('/', middleware.authenticateByToken)
 router.all('/*', middleware.authenticateByToken)
 
 router.get('/', getAllTasks)

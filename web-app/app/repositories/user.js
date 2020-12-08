@@ -15,3 +15,11 @@ module.exports.getByToken = async function (token) {
         throw error
     }
 }
+
+module.exports.updateById = async function (id, set) {
+    try {
+        return await User.updateOne({ '_id': id }, { '$set': set })
+    } catch(error) {
+        throw error
+    }
+}

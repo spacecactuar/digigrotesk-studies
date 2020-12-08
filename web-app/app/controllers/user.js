@@ -37,3 +37,25 @@ function validateEmail(email) {
     return regex.test(String(email).toLowerCase());
 }
 module.exports.validateEmail = validateEmail
+
+async function updateUser(user, updateUser) {
+    try {
+        validateUpdate(updateUser)
+
+        return userRepository.updateById(user._id, updateUser)
+    } catch(error) {
+        console.error(`[updateExam] Erro ao atualizar user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.updateUser = updateUser
+
+function validateUpdate(update) {
+    try {
+        if (update.password) throw { code: 400, message: 'Não é possível atualizar a senha por essa rota de API!' }
+        if (update.create) throw { code: 400, message: 'Não é possível atualizar a data de criação do usuário!' }
+        if (update.auth) throw { code: 400, message: 'Não é possível atualizar as informações de autenticação do usuário!' }
+    } catch(error) {
+        throw error
+    }
+}

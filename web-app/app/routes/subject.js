@@ -4,7 +4,6 @@ const middleware = require('../controllers/middleware')
 const subjectController = require('../controllers/subject')
 const examController = require('../controllers/exam')
 
-router.all('/', middleware.authenticateByToken)
 router.all('/*', middleware.authenticateByToken)
 
 router.get('/', getAllSubsjects)

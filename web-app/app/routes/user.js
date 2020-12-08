@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const middleware = require('../controllers/middleware')
 const userController = require('../controllers/user')
 
 router.post('/', createUser)
 
-router.put('/:id', updateUser)
+router.put('/:id', middleware.authenticateByToken, updateUser)
 
 module.exports = router
 
@@ -20,9 +21,9 @@ async function createUser(req, res) {
 
 async function updateUser(req, res) {
     try {
-        const id = req.params.id
-        res.status(201).send({id: id, item: req.body})
+        await userController.updateUser(req.user, req.body)
+        res.status(200).send('Usuário atualizado!')
     } catch(error) {
-        res.status(500).send(error.message)
+        res.status(error.code || 500).send(error.message)
     }
 }

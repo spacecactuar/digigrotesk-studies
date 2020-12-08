@@ -4,7 +4,6 @@ const middleware = require('../controllers/middleware')
 const semesterController = require('../controllers/semester')
 const subjectController = require('../controllers/subject')
 
-router.all('/', middleware.authenticateByToken)
 router.all('/*', middleware.authenticateByToken)
 
 router.get('/', getAllSemesters)
