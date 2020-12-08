@@ -90,7 +90,7 @@ module.exports.deleteSubject = deleteSubject
 
 async function updateSubject(user, id, updateSubject) {
     try {
-        if (!updateSubject || Object.keys(updateSubject) == 0) return
+        if (!updateSubject || Object.keys(updateSubject).length == 0) return
         if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar uma disciplina específica!' }
         validateUpdate(updateSubject)
 

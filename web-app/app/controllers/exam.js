@@ -16,7 +16,7 @@ async function createExam(user, newExam) {
         exam.create = new Date()
 
         return await examRepository.create(exam)
-    } catch(error){
+    } catch(error) {
         console.error(`[createExam] Erro ao criar exam para o user ${user._id} - ${user.email}. ${error.message}`)
         throw error
     }
@@ -61,7 +61,7 @@ module.exports.getUserExam = getUserExam
 
 async function updateExam(user, id, updateExam) {
     try {
-        if (!updateExam || Object.keys(updateExam) == 0) return
+        if (!updateExam || Object.keys(updateExam).length == 0) return
         if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar uma prova específica!' }
 
         validateUpdate(updateExam)
@@ -79,8 +79,9 @@ module.exports.updateExam = updateExam
 function validateUpdate(update) {
     try {
         if (update.subject) throw { code: 400, message: 'Não é possível atualizar a disciplina da prova!' }
+        if (update.create) throw { code: 400, message: 'Não é possível atualizar a data de criação da prova!' }
     } catch(error) {
-        throw errpr
+        throw error
     }
 }
 

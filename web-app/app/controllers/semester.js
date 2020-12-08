@@ -72,7 +72,7 @@ module.exports.getUserSemester = getUserSemester
 
 async function updateSemester(user, id, updateSemester) {
     try {
-        if (!updateSemester || Object.keys(updateSemester) == 0) return
+        if (!updateSemester || Object.keys(updateSemester).length == 0) return
         if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar um período específico!' }
 
         let semester = await semesterRepository.getById(user._id, id)
