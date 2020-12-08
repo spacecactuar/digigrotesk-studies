@@ -114,3 +114,19 @@ async function deleteTasksFromSubject(user, subjectId) {
     }
 }
 module.exports.deleteTasksFromSubject = deleteTasksFromSubject
+
+async function realizedTask(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para marcar como realizada uma tarefa específica!' }
+        let set = {
+            realized: true,
+            realizedDate: new Date()
+        }
+
+        return await taskRepository.updateById(user._id, id, set)
+    } catch(error) {
+        console.error(`[realizedTask] Erro ao marcar task ${id} do user ${user._id} - ${user.email} como realized. ${error.message}`)
+        throw error
+    }
+}
+module.exports.realizedTask = realizedTask
