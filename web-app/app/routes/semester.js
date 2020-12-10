@@ -18,6 +18,8 @@ router.delete('/:id', deleteSemester)
 
 router.get('/:id/subjects', getSubjectsFromSemester)
 
+router.get('/:id/info', getSemesterInfo)
+
 module.exports = router
 
 async function getAllSemesters(req, res) {
@@ -78,6 +80,17 @@ async function getSubjectsFromSemester(req, res) {
         let id = req.params.id
         let subjects = await subjectController.getSubjectsFromSemester(user, id)
         res.status(200).send(subjects)
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function getSemesterInfo(req, res) {
+    try {
+        let user = req.user
+        let id = req.params.id
+        let semesterIno = await semesterController.getSemesterInfo(user, id)
+        res.status(200).send(semesterIno)
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
