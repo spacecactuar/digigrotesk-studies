@@ -8,7 +8,7 @@ const semesterRoute = require('./routes/semester')
 const subjectRoute = require('./routes/subject')
 const examRoute = require('./routes/exam')
 const taskRoute = require('./routes/task')
-const classRoute = require('./routes/class')
+const lessonRoute = require('./routes/lesson')
 
 const app = express()
 mongoose.connect('mongodb+srv://pedro:teste123456@qa.xrzgw.mongodb.net/QA?retryWrites=true&w=majority',{
@@ -26,6 +26,6 @@ app.use('/semester', semesterRoute)
 app.use('/subject', subjectRoute)
 app.use('/exam', examRoute)
 app.use('/task', taskRoute)
-app.use('/class', classRoute)
+app.use('/lesson', lessonRoute)
 
 module.exports = app

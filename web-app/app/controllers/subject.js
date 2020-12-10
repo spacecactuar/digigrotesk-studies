@@ -1,6 +1,6 @@
 const subjectRepository = require('../repositories/subject')
 const semesterRepository = require('../repositories/semester')
-const classController = require('./class')
+const classController = require('./lesson')
 const taskController = require('./task')
 const examController = require('./exam')
 

@@ -25,7 +25,7 @@ module.exports.createExam = createExam
 
 function validateExam(exam) {
     try {
-        if (!exam || Object.keys(exam).length == 0) throw { code: 400, message: 'É obrigatório passar uma prova para ser salva!' }
+        if (!exam || Object.keys(exam).length === 0) throw { code: 400, message: 'É obrigatório passar uma prova para ser salva!' }
         if (!exam.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação da prova!' }
         if (!exam.subject) throw { code: 400, message: 'É obrigatório passar a qual disciplina esta prova vai pertencer!' }
         if (!exam.date) throw { code: 400, message: 'É obrigatório passar a data de realização da prova!' }
@@ -52,7 +52,7 @@ async function getUserExam(user, id) {
         let exam = await examRepository.getById(user._id, id)
         return exam
     } catch(error) {
-        console.error(`[getUser] Erro ao buscar exam do user ${user._id} - ${user.email}. ${error.message}`)
+        console.error(`[getUserExam] Erro ao buscar exam do user ${user._id} - ${user.email}. ${error.message}`)
         if (error.code) throw error
         throw { code: 500, message: 'Erro interno do servidor' }
     }
@@ -61,8 +61,8 @@ module.exports.getUserExam = getUserExam
 
 async function updateExam(user, id, updateExam) {
     try {
-        if (!updateExam || Object.keys(updateExam).length == 0) return
-        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar uma prova específica!' }
+        if (!updateExam || Object.keys(updateExam).length === 0) return
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para atualizar uma prova específica!' }
 
         validateUpdate(updateExam)
         if (updateExam.date)

@@ -13,8 +13,9 @@ const schema = new Schema({
             enum: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'],
             required: true
         },
-        start: { type: Date, required: true }
-    }]
+        start: { type: String, required: true }
+    }],
+    create: { type: Date, required: true }
 })
 
-module.exports = mongoose.model('Classes', schema)
+module.exports = mongoose.model('Lessons', schema)
