@@ -22,6 +22,10 @@ router.put('/:id/grade', updateGrade)
 
 router.get('/:id/grade', getSubjectGrade)
 
+router.post('/absence', registerAbsenceInLesson)
+
+router.get('/:id/absence', getSubjectAbsences)
+
 module.exports = router
 
 async function getAllSubsjects(req, res) {
@@ -105,6 +109,26 @@ async function getSubjectGrade(req, res) {
         let id = req.params.id
         let grades = await subjectController.getSubjectGrade(user, id)
         res.status(200).send(grades)
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function registerAbsenceInLesson(req, res) {
+    try {
+        await subjectController.registerAbsenceInLesson(req.user, req.body)
+        res.status(201).send('Ausência registrada!')
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function getSubjectAbsences(req, res) {
+    try {
+        let user = req.user
+        let id = req.params.id
+        let absences = await subjectController.getSubjectAbsences(user, id)
+        res.status(200).send(absences)
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

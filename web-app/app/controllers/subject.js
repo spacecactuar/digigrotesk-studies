@@ -1,5 +1,6 @@
 const subjectRepository = require('../repositories/subject')
 const semesterRepository = require('../repositories/semester')
+const absenceRepository = require('../repositories/absence')
 const classController = require('./lesson')
 const taskController = require('./task')
 const examController = require('./exam')
@@ -222,3 +223,50 @@ async function getSemesterGrade(user, semesterId) {
     }
 }
 module.exports.getSemesterGrade = getSemesterGrade
+
+async function registerAbsenceInLesson(user, newAbsence) {
+    try {
+        validateAbsence(newAbsence)
+
+        let subject = await subjectRepository.getById(user._id, newAbsence.subject)
+        if (!subject) throw { code: 404, message: 'Disciplina não encontrada!' }
+
+        let absence = newAbsence
+        absence.subject = {
+            id: subject._id,
+            author: user._id
+        }
+        absence.date = new Date(absence.date)
+        absence.create = new Date()
+
+        return await absenceRepository.create(absence)
+    } catch(error) {
+        console.error(`[registerAbsenceInLesson] Erro ao registrar absence no subject do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.registerAbsenceInLesson = registerAbsenceInLesson
+
+function validateAbsence(absence) {
+    try {
+        if (!absence || Object.keys(absence).length == 0) throw { code: 400, message: 'É obrigatório passar os dados da ausência na aula!' }
+        if (!absence.subject) throw { code: 400, message: 'É obrigatório passar a disciplina da ausência na aula!' }
+        if (!absence.date) throw { code: 400, message: 'É obrigatório passar a data da ausência na aula!' }
+    } catch(error) {
+        throw error
+    }
+}
+
+async function getSubjectAbsences(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para buscar as ausências em uma disciplina específica!' }
+
+        let absences = await absenceRepository.get({ 'subject.author': user._id, 'subject.id': id })
+        return absences
+    } catch(error) {
+        console.error(`[getSubjectAbsence] Erro ao buscar absences do subject do user ${user._id} - ${user.email}. ${error.message}`)
+        if (error.code) throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
+    }
+}
+module.exports.getSubjectAbsences = getSubjectAbsences
