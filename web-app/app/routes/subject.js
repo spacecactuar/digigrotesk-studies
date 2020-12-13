@@ -18,6 +18,10 @@ router.delete('/:id', deleteSubject)
 
 router.get('/:id/exams', getExamsFromSubject)
 
+router.put('/:id/grade', updateGrade)
+
+router.get('/:id/grade', getSubjectGrade)
+
 module.exports = router
 
 async function getAllSubsjects(req, res) {
@@ -78,6 +82,26 @@ async function getExamsFromSubject(req, res) {
         let id = req.params.id
         let exams = await examController.getExamsFromSubject(user, id)
         res.status(200).send(exams)
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function updateGrade(req, res) {
+    try {
+        let user = req.user
+        let id = req.params.id
+        let grades = req.body
+        await subjectController.updateGrade(user, id, grades)
+        res.status(200).send('Notas registradas!')
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function getSubjectGrade(req, res) {
+    try {
+
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

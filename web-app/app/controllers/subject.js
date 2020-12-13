@@ -128,3 +128,45 @@ async function getSubjectsFromSemester(user, id) {
     }
 }
 module.exports.getSubjectsFromSemester = getSubjectsFromSemester
+
+async function updateGrade(user, id, grades) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar o id da disciplina na requisição para registrar as notas!' }
+
+        let subject = await subjectRepository.get({ '_id': id, 'author': user._id })
+        if (!subject) throw { code: 404, message: 'É obrigatório passar o id da disciplina na requisição para registrar as notas!' }
+
+        validateGrade(grades)
+
+        let weight = 0
+        let valueSum = grades.reduce((sum, grade) => {
+            grade.value = parseInt(grade.value)
+            grade.weight = parseInt(grade.weight)
+            weight = weight + grade.weight
+            return sum + (grade.value * grade.weight)
+        }, 0)
+
+        let finalGrade = valueSum / weight
+        let set = {
+            finalGrade: finalGrade,
+            grades: grades
+        }
+        return await subjectRepository.updateById(user._id, id, set)
+    } catch(error) {
+        console.error(`[updateGrade] Erro ao calcular grade do subject ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.updateGrade = updateGrade
+
+function validateGrade(grades) {
+    try {
+        if (!grades || Object.keys(grades).length == 0 || grades.length == 0) throw { code: 400, message: 'É obrigatório passar as notas para que sejam registradas na disciplina!'}
+        grades.forEach(grade => {
+            if (!grade.value) throw { code: 400, message: 'É obrigatório passar o valor da nota para que seja registrada na disciplina!'}
+            if (!grade.weight) throw { code: 400, message: 'É obrigatório pasar o peso da nota para que seja registrada na disciplina!'}
+        })
+    } catch(error) {
+        throw error
+    }
+}
