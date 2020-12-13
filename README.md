@@ -78,7 +78,7 @@ npm test
 ```
 
 #### Banco de dados
-A tecnologia de banco de dados escolhida para esse projeto foi um NoSQl, no caso o MongoDB. Onde o projeto roda com o banco em nuvem, que esta alocado no serviço Atlas: MongoDB.
+A tecnologia de banco de dados escolhida para esse projeto foi um NoSQL, no caso o MongoDB. Onde o projeto roda com o banco em nuvem, que esta alocado no serviço Atlas: MongoDB.
 Com o framework mongoose a estrutura do banco de dados é criada de forma dinamica, ou seja, quando uma operação de create() é chamada ele cria a tabela e ja insere o documento, portanto no projeto basta adicionar a url de conexão com o banco de dados.
 
 ### Arquitetura
