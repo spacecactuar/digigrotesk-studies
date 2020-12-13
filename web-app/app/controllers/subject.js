@@ -180,7 +180,7 @@ async function getSubjectGrade(user, id) {
         if (!id) throw { code: 400, message: 'É obrigatório passar o id da disciplina na requisição para buscar as notas!' }
 
         let subject = await subjectRepository.getById(user._id, id)
-        if (!subject) throw { code: 404, message: 'É obrigatório passar o id da disciplina na requisição para buscar as notas!' }
+        if (!subject) throw { code: 404, message: 'Disciplina não encontrada!' }
 
         return {
             name: subject.name,
@@ -193,3 +193,32 @@ async function getSubjectGrade(user, id) {
     }
 }
 module.exports.getSubjectGrade = getSubjectGrade
+
+async function getSemesterGrade(user, semesterId) {
+    try {
+        if (!semesterId) throw { code: 400, message: 'É obrigatório passar o id do período na requisição para buscar as notas!' }
+
+        let semester = await semesterRepository.getById(user._id, semesterId)
+        if (!semester) throw { code: 404, message: 'Período não encontrado!' }
+
+        let semesterGrades = []
+        let subjects = await subjectRepository.get({ 'author': user._id, 'semester': semesterId })
+
+        subjects.forEach(subject => {
+            semesterGrades.push({
+                name: subject.name,
+                finalGrade: subject.finalGrade,
+                grades: subject.grades
+            })
+        })
+
+        return {
+            semester: semester.name,
+            subjects: semesterGrades
+        }
+    } catch(error) {
+        console.error(`[getSemesterGrade] Erro ao buscar grades do semester ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.getSemesterGrade = getSemesterGrade
