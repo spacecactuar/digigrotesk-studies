@@ -37,7 +37,7 @@ Esse projeto é composto majoritariamente de Javascript e por isso se utiliza do
 - [Bootstrap4 v4.5.3](https://getbootstrap.com/)
 - [Angular v7.1.4](https://angular.io)
 - [Express v4.17.1](https://expressjs.com)
-- [Mongoose v5.10.9](https://mongoosejs.com/)
+- [Mongoose v5.11.2](https://mongoosejs.com/)
 
 ### Telas da Aplicação
 O layout da aplicação foi desenhado no Figma e está disponível [aqui](https://www.figma.com/proto/9Lx0Og1sdE6bFXRwFtKl8y/Digi-Grotesk?node-id=15%3A31&viewport=424%2C-1019%2C0.5&scaling=min-zoom).
@@ -47,8 +47,8 @@ O layout da aplicação foi desenhado no Figma e está disponível [aqui](https:
 
 Para começar é necessário estar com as tecnologias abaixo **Node.js, NPM e MongoDB** instalados na sua máquina, caso tenha alguma dúvida siga o guia de instalação de cada uma delas.
 
-- [Node.js v8.13.0](https://nodejs.org/en/)
-- [NPM v6.4.1](https://www.npmjs.com/) (Incluso no Node.js)
+- [Node.js v14.15.1](https://nodejs.org/en/)
+- [NPM v6.14.8](https://www.npmjs.com/) (Incluso no Node.js)
 - [MongoDB v4.4](https://www.mongodb.com/)
 
 ### Pré-requisitos
@@ -63,10 +63,18 @@ mongod --version
 ```sh
 1. Clone o repositório para a sua máquina
 git clone https://github.com/spacecactuar/super-guacamole.git
+
 2. Instale os pacotes NPM
 npm install
-3. Rode o programa
+
+3. Rodar o projeto
 npm start
+    3.1 Para rodar em modo desenvolvedor
+        npm nodemon
+
+4. Rodar o projeto de testes
+npm test
+    
 ```
 
 #### Atualizando o banco de dados
@@ -114,10 +122,12 @@ A pasta **./public** é reponsável por armazenar o frontend. Onde as stacks esc
 
 A pasta **./app** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
-- NodeJs (v8.13.0): como uma ideia de facilitar a curva de aprendizado da equipe e experiência já obtida foi escolhido o NodeJs para ser a base do backend. Onde teremos um produto de software com javascript de ponta a ponta;
+- NodeJs (v14.15.1): como uma ideia de facilitar a curva de aprendizado da equipe e experiência já obtida foi escolhido o NodeJs para ser a base do backend. Onde teremos um produto de software com javascript de ponta a ponta;
 - MongoDb (v4.4): para este produto de software a arquitetura de um banco NoSql é suficiente para atender à demanda. Onde a segurança e integridade vais er totalmente configurada pela estrutura do framework escolhido para conectar o código ao banco de dados;
-- Mongoose (v5.10.9): framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
+- Mongoose (v5.11.2): framework utilizado para conectar o backend ao banco de dados. Onde os arquivos do model serão definidas as estritutas dos objetos das tabelas e os seus indexs, para assim manter a integridade;
 - Express (v4.17.1): framework escolhido para construir as rotas para a API Rest. Essa vai ser a estrutura que o backend vai disponibilizar os serviços que o frontend vai consumir.
+- Nodemon (v2.0.6): é usado para facilitar o ambiente do desenvolvedor. Sempre que um arquivo é modificado o nodemon restarta o servidor automaticamente;
+- Mocha (v8.2.1): framework utilizado para os testes automatizados do sistema.
 
 ## Equipe Digi Grotesk
 Todos os artefatos desse projeto foram produzidos pela equipe digigrotesk, que é composta por:
