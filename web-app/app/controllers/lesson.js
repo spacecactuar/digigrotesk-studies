@@ -1,3 +1,4 @@
+const moment = require('moment')
 const subjectRepository = require('../repositories/subject')
 const lessonRepository = require('../repositories/lesson')
 
@@ -13,6 +14,7 @@ async function createLesson(user, newLesson) {
             author: user._id
         }
         lesson.create = new Date()
+        lesson.quantity = calculateLessonsQuantity(subject.start, subject.end, lesson.realizationDays)
 
         return await lessonRepository.create(lesson)
     } catch(error) {
@@ -33,6 +35,41 @@ function validateLesson(lesson) {
             if (!lessonDay.day || !lessonDay.start)
                 throw { code: 400, message: 'É obrigatório passar o dia da semana e horário de inicio de cada aula!' }
         })
+    } catch(error) {
+        throw error
+    }
+}
+
+function calculateLessonsQuantity(subjectStart, subjectEnd, realizationDays) {
+    try {
+        let quantityDays = 0
+        let realizationWeekDays = realizationDays.map(realizationDay => {
+           switch (realizationDay.day) {
+               case 'mon':
+                   return 1
+               case 'tue':
+                   return 2
+               case 'wed':
+                   return 3
+               case 'thu':
+                   return 4
+               case 'fri':
+                   return 5
+               case 'sat':
+                   return 6
+           }
+        })
+
+        let start = moment(new Date(subjectStart))
+        let end = moment(new Date(subjectEnd))
+        let subjectDuration = moment.duration(end.diff(start)).asDays()
+        for (let day = 0; day <= subjectDuration; day++) {
+            realizationWeekDays.forEach(weekDay => {
+                if (weekDay === moment(new Date(subjectStart)).add(day,'day' ).add(3, 'hours').toDate().getDay())
+                    quantityDays++
+            })
+        }
+        return quantityDays
     } catch(error) {
         throw error
     }

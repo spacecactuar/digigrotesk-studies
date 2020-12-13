@@ -15,6 +15,7 @@ const schema = new Schema({
         },
         start: { type: String, required: true }
     }],
+    quantity: Number,
     create: { type: Date, required: true }
 })
 

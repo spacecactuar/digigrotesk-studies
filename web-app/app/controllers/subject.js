@@ -1,5 +1,7 @@
+const moment = require('moment')
 const subjectRepository = require('../repositories/subject')
 const semesterRepository = require('../repositories/semester')
+const lessonRepository = require('../repositories/lesson')
 const absenceRepository = require('../repositories/absence')
 const classController = require('./lesson')
 const taskController = require('./task')
@@ -14,6 +16,8 @@ async function createSubject(user, newSubject) {
 
         let subject = newSubject
         subject.author = user._id
+        subject.start = new Date(subject.start)
+        subject.end = new Date(subject.end)
         subject.create = new Date()
 
         return subjectRepository.create(subject)
@@ -29,6 +33,8 @@ function validateSubject(subject) {
         if (!subject || Object.keys(subject).length == 0) throw { code: 400, message: 'É obrigatório passar uma disciplina para ser salva!' }
         if (!subject.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação para a disciplina que será salva!' }
         if (!subject.semester) throw { code: 400, message: 'É obrigatório passar a qual período esta disciplina vai pertencer!' }
+        if (!subject.start) throw { code: 400, message: 'É obrigatório passar a data de início da disciplina!' }
+        if (!subject.end) throw { code: 400, message: 'É obrigatório passar a data de término da disciplina!' }
     } catch(error) {
         throw error
     }
@@ -270,3 +276,28 @@ async function getSubjectAbsences(user, id) {
     }
 }
 module.exports.getSubjectAbsences = getSubjectAbsences
+
+async function calculatePercentageAttendance(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar um id na requisição para calcular a porcentagem de frequência em uma disciplina específica!' }
+
+        let subject = await subjectRepository.getById(user._id, id)
+        if (!subject) throw { code: 404, message: 'Disciplina não encontrada!'}
+
+        let lesson = await lessonRepository.get({ 'subject.author': user._id, 'subject.id': subject._id })
+        if (!lesson) throw { code: 404, message: 'Aula não encontrada!'}
+
+        let attendance = 0
+
+        let absences = await absenceRepository.get({ 'subject.author': user._id, 'subject.id': subject._id })
+        if (!absences) return attendance
+
+        attendance = ((absences.length / lesson[0].quantity) * 100).toFixed(2)
+        return attendance + " %"
+    } catch(error) {
+        console.error(`[calculatePercentageAttendance] Erro ao calcular porcentagem de frequência do subject do user ${user._id} - ${user.email}. ${error.message}`)
+        if (error.code) throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
+    }
+}
+module.exports.calculatePercentageAttendance = calculatePercentageAttendance

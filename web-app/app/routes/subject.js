@@ -26,6 +26,8 @@ router.post('/absence', registerAbsenceInLesson)
 
 router.get('/:id/absence', getSubjectAbsences)
 
+router.get('/:id/absence/percent', calculatePercentageAttendance)
+
 module.exports = router
 
 async function getAllSubsjects(req, res) {
@@ -129,6 +131,17 @@ async function getSubjectAbsences(req, res) {
         let id = req.params.id
         let absences = await subjectController.getSubjectAbsences(user, id)
         res.status(200).send(absences)
+    } catch(error) {
+        res.status(error.code || 500).send(error.message)
+    }
+}
+
+async function calculatePercentageAttendance(req, res) {
+    try {
+        let user = req.user
+        let id = req.params.id
+        let attendance = await subjectController.calculatePercentageAttendance(user, id)
+        res.status(200).send({ attendance: attendance })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

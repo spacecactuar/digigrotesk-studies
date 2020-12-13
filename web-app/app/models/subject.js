@@ -7,6 +7,8 @@ const schema = new Schema({
     school: String,
     author: { type: mongoose.Schema.Types.ObjectId, required: true },
     semester: { type: mongoose.Schema.Types.ObjectId, required: true },
+    start: { type: Date, required: true },
+    end: { type: Date, required: true },
     create: { type: Date, required: true },
     finalGrade: Number,
     grades: [{
