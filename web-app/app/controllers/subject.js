@@ -133,22 +133,13 @@ async function updateGrade(user, id, grades) {
     try {
         if (!id) throw { code: 400, message: 'É obrigatório passar o id da disciplina na requisição para registrar as notas!' }
 
-        let subject = await subjectRepository.get({ '_id': id, 'author': user._id })
+        let subject = await subjectRepository.getById(user._id, id)
         if (!subject) throw { code: 404, message: 'É obrigatório passar o id da disciplina na requisição para registrar as notas!' }
 
         validateGrade(grades)
 
-        let weight = 0
-        let valueSum = grades.reduce((sum, grade) => {
-            grade.value = parseInt(grade.value)
-            grade.weight = parseInt(grade.weight)
-            weight = weight + grade.weight
-            return sum + (grade.value * grade.weight)
-        }, 0)
-
-        let finalGrade = valueSum / weight
         let set = {
-            finalGrade: finalGrade,
+            finalGrade: calculateGrade(grades),
             grades: grades
         }
         return await subjectRepository.updateById(user._id, id, set)
@@ -170,3 +161,35 @@ function validateGrade(grades) {
         throw error
     }
 }
+
+function calculateGrade(grades) {
+    let weight = 0
+    let valueSum = grades.reduce((sum, grade) => {
+        grade.value = parseInt(grade.value)
+        grade.weight = parseInt(grade.weight)
+        weight = weight + grade.weight
+        return sum + (grade.value * grade.weight)
+    }, 0)
+
+    let finalGrade = valueSum / weight
+    return finalGrade
+}
+
+async function getSubjectGrade(user, id) {
+    try {
+        if (!id) throw { code: 400, message: 'É obrigatório passar o id da disciplina na requisição para buscar as notas!' }
+
+        let subject = await subjectRepository.getById(user._id, id)
+        if (!subject) throw { code: 404, message: 'É obrigatório passar o id da disciplina na requisição para buscar as notas!' }
+
+        return {
+            name: subject.name,
+            finalGrade: subject.finalGrade,
+            grades: subject.grades
+        }
+    } catch(error) {
+        console.error(`[getSubjectGrade] Erro ao buscar grades da subject ${id} do user ${user._id} - ${user.email}. ${error.message}`)
+        throw error
+    }
+}
+module.exports.getSubjectGrade = getSubjectGrade
