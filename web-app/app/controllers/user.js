@@ -59,3 +59,4 @@ function validateUpdate(update) {
         throw error
     }
 }
+module.exports.validateUpdate = validateUpdate
