@@ -1,5 +1,5 @@
 jobs:
-  test:
+  node/test:
     docker:
     - image: cimg/node:13.11.0
     steps:
@@ -14,4 +14,4 @@ orbs:
 workflows:
   node-tests:
     jobs:
-      - test
+      - node/test
