@@ -1,6 +1,7 @@
-jobs:
-  node/test:
-    app-dir: ~/web-app
+parameters:
+  workingdir:
+    type: string
+    default: "~/web-app"
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
