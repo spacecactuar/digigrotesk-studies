@@ -4,7 +4,7 @@ jobs:
     - image: cimg/node:stable
     steps:
     - checkout
-    app-dir: ~/project
+    working_directory: ~/project
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
