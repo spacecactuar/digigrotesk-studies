@@ -5,5 +5,3 @@ workflows:
   node-tests:
     jobs:
       - node/test
-        parameters:
-          app-dir: ~/web-app
