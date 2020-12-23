@@ -1,7 +1,7 @@
 parameters:
   workingdir:
     type: string
-    default: "~/web-app"
+    default: "/home/circleci/project/web-app"
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
