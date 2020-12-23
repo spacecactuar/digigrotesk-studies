@@ -1,14 +1,17 @@
 jobs:
-  node/test:
+  test:
     docker:
     - image: cimg/node:stable
     steps:
     - checkout
-    working_directory: ~/project
+    parameters:
+      app-dir: 
+        default: ~/web-app
+        type: string
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
 workflows:
   node-tests:
     jobs:
-      - node/test
+      - test
