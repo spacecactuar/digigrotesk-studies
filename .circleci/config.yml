@@ -1,7 +1,7 @@
 jobs:
   node/test:
     docker:
-    - image: cimg/node:stable
+    - image: cimg/node:13.11.0
     steps:
     - checkout
     app-dir: ~/project
