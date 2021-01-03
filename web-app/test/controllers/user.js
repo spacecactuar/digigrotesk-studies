@@ -1,4 +1,3 @@
-
 const assert = require('assert');
 const userController = require('../../app/controllers/user')
 
@@ -62,7 +61,7 @@ describe('Testes unitários para o controller user', () => {
             }
             assert.deepEqual(result, resultExpected)
         });
-        it('CT010 - user -> email undefined', () => {
+        it('CT010 - email undefined', () => {
             let user = {
                 email: ''
             }
@@ -75,7 +74,7 @@ describe('Testes unitários para o controller user', () => {
             }
             assert.deepEqual(result, resultExpected)
         });
-        it('CT011 - user -> email invalid', () => {
+        it('CT011 - email invalid', () => {
             let user = {
                 email: 'a'
             }
@@ -88,7 +87,7 @@ describe('Testes unitários para o controller user', () => {
             }
             assert.deepEqual(result, resultExpected)
         });
-        it('CT012 - user -> password undefined', () => {
+        it('CT012 - password undefined', () => {
             let user = {
                 email: 'pedro@gmail.com'
             }

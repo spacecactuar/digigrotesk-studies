@@ -1,4 +1,3 @@
-const moment = require('moment')
 const subjectRepository = require('../repositories/subject')
 const semesterRepository = require('../repositories/semester')
 const lessonRepository = require('../repositories/lesson')
@@ -16,8 +15,6 @@ async function createSubject(user, newSubject) {
 
         let subject = newSubject
         subject.author = user._id
-        subject.start = new Date(subject.start)
-        subject.end = new Date(subject.end)
         subject.create = new Date()
 
         return subjectRepository.create(subject)
@@ -35,10 +32,29 @@ function validateSubject(subject) {
         if (!subject.semester) throw { code: 400, message: 'É obrigatório passar a qual período esta disciplina vai pertencer!' }
         if (!subject.start) throw { code: 400, message: 'É obrigatório passar a data de início da disciplina!' }
         if (!subject.end) throw { code: 400, message: 'É obrigatório passar a data de término da disciplina!' }
+
+        validateDate(subject)
     } catch(error) {
         throw error
     }
 }
+module.exports.validateSubject = validateSubject
+
+function validateDate(subject) {
+    try {
+        let startDate = new Date(subject.start)
+        let endDate = new Date(subject.end)
+
+        if (startDate > endDate)
+            throw { code: 400, message: 'A data de início da disciplina deve ser menor que a data de término!' }
+
+        subject.start = startDate
+        subject.end = endDate
+    } catch(error) {
+        throw error
+    }
+}
+module.exports.validateDate = validateDate
 
 async function getAllUserSubjects(user) {
     try {
@@ -118,6 +134,7 @@ function validateUpdate(update) {
         throw error
     }
 }
+module.exports.validateUpdate = validateUpdate
 
 async function getSubjectsFromSemester(user, id) {
     try {
@@ -168,6 +185,7 @@ function validateGrade(grades) {
         throw error
     }
 }
+module.exports.validateGrade = validateGrade
 
 function calculateGrade(grades) {
     let weight = 0
@@ -181,6 +199,7 @@ function calculateGrade(grades) {
     let finalGrade = valueSum / weight
     return finalGrade
 }
+module.exports.calculateGrade = calculateGrade
 
 async function getSubjectGrade(user, id) {
     try {

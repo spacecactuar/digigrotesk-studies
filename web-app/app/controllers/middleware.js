@@ -30,3 +30,4 @@ function validateApiHeaders(key, token) {
         throw error
     }
 }
+module.exports.validateApiHeaders = validateApiHeaders

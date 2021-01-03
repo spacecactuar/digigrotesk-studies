@@ -33,6 +33,7 @@ function validateExam(exam) {
         throw error
     }
 }
+module.exports.validateExam = validateExam
 
 async function getAllUserExams(user) {
     try {
@@ -84,6 +85,7 @@ function validateUpdate(update) {
         throw error
     }
 }
+module.exports.validateUpdate = validateUpdate
 
 async function deleteExam(user, id) {
     try {

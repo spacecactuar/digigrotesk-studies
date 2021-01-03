@@ -33,6 +33,7 @@ function validateSemester(semester) {
         throw error
     }
 }
+module.exports.validateSemester = validateSemester
 
 function validateDate(semester) {
     try {
@@ -48,6 +49,7 @@ function validateDate(semester) {
         throw error
     }
 }
+module.exports.validateDate = validateDate
 
 async function getAllUserSemesters(user) {
     try {
@@ -99,7 +101,7 @@ function validateUpdate(update, semester) {
             if (update.startDate > semester.endDate) throw { code: 400, message: 'A data de início do período deve ser menor que a data de término!' }
         } else if (!update.startDate && update.endDate) {
             update.endDate = new Date(update.endDate)
-            if (update.endDate < semester.endDate) throw { code: 400, message: 'A data de início do período deve ser menor que a data de término!' }
+            if (update.endDate < semester.startDate) throw { code: 400, message: 'A data de início do período deve ser menor que a data de término!' }
         } else if (update.startDate && update.endDate) {
             validateDate(update)
         }
@@ -107,6 +109,7 @@ function validateUpdate(update, semester) {
         throw error
     }
 }
+module.exports.validateUpdate = validateUpdate
 
 async function deleteSemester(user, id) {
     try {
@@ -167,16 +170,19 @@ function bindExamsInfo(exams) {
         }
     })
 }
+module.exports.bindExamsInfo = bindExamsInfo
 
 function bindTasksInfo(tasks) {
     return tasks.map(task => {
         return {
             name: task.name,
             realized: task.realized,
-            deadline: task.deadline
+            deadline: task.deadline,
+            realizedDate: task.realizedDate
         }
     })
 }
+module.exports.bindTasksInfo = bindTasksInfo
 
 function bindLessonsInfo(lessons) {
     return lessons.map(lesson => {
@@ -186,3 +192,4 @@ function bindLessonsInfo(lessons) {
         }
     })
 }
+module.exports.bindLessonsInfo = bindLessonsInfo

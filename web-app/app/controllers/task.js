@@ -78,6 +78,7 @@ module.exports.updateTask = updateTask
 
 function validateUpdate(update) {
     try {
+        if (update.author) throw { code: 400, message: 'Não é possível atualizar o author da tarefa!' }
         if (update.subject) throw { code: 400, message: 'Não é possível atualizar a disciplina da tarefa!' }
         if (update.create) throw { code: 400, message: 'Não é possível atualizar a data de criação da tarefa!' }
         if (update.realized) throw { code: 400, message: 'Para marcar a tarefa como realizada use a rota específica da API para isso!' }

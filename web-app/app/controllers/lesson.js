@@ -39,6 +39,7 @@ function validateLesson(lesson) {
         throw error
     }
 }
+module.exports.validateLesson = validateLesson
 
 function calculateLessonsQuantity(subjectStart, subjectEnd, realizationDays) {
     try {
@@ -74,6 +75,7 @@ function calculateLessonsQuantity(subjectStart, subjectEnd, realizationDays) {
         throw error
     }
 }
+module.exports.calculateLessonsQuantity = calculateLessonsQuantity
 
 async function getAllUserLessons(user) {
     try {
@@ -131,6 +133,7 @@ function validateUpdate(update) {
         throw error
     }
 }
+module.exports.validateUpdate = validateUpdate
 
 async function deleteLesson(user, id) {
     try {
