@@ -33,6 +33,7 @@ function validateTask(task) {
         throw error
     }
 }
+module.exports.validateTask = validateTask
 
 async function getAllUserTasks(user) {
     try {
@@ -82,10 +83,12 @@ function validateUpdate(update) {
         if (update.subject) throw { code: 400, message: 'Não é possível atualizar a disciplina da tarefa!' }
         if (update.create) throw { code: 400, message: 'Não é possível atualizar a data de criação da tarefa!' }
         if (update.realized) throw { code: 400, message: 'Para marcar a tarefa como realizada use a rota específica da API para isso!' }
+        if (update.realizedDate) throw { code: 400, message: 'Para marcar a de realização da tarefa use a rota específica da API para isso!' }
     } catch(error) {
         throw error
     }
 }
+module.exports.validateUpdate = validateUpdate
 
 async function deleteTask(user, id) {
     try {

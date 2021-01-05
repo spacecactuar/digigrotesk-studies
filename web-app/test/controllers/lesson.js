@@ -2,7 +2,7 @@ const assert = require('assert');
 const lessonController = require('../../app/controllers/lesson')
 
 describe('Testes unitários para o controller lesson', () => {
-    describe('validateLesson', () => {
+    describe('validateLesson()', () => {
         it('CT001 - lesson null', () => {
             let resultExpected = { code: 400, message: 'É obrigatório passar uma aula para ser salva!' }
             let result
