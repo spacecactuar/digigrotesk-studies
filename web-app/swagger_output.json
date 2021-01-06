@@ -17,16 +17,27 @@
   "paths": {
     "/user/": {
       "post": {
+        "summary": "Criar usuário",
         "tags": [],
-        "description": "",
+        "description": "Cria um usuário para que seja gerado os valores de key e token para autenticação à API",
         "parameters": [{
           "in": "body",
           "name": "email",
-          "required": true
+          "required": true,
+          "example": "pedro@gmail.com",
+          "description": "Email do usuário"
         },{
           "in": "body",
           "name": "password",
-          "required": true
+          "required": true,
+          "example": "Senha123456",
+          "description": "Senha do usuário"
+        },{
+          "in": "body",
+          "name": "name",
+          "required": false,
+          "example": "Pedro",
+          "description": "Nome do usuário"
         }],
         "responses": {
           "201": {
@@ -65,25 +76,25 @@
     "/user/{id}": {
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Atualizar usuário",
+        "description": "Atualiza o nome do usuário",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
           },{
-            "in": "header",
-            "name": "x-key-api",
-            "required": true
+            "$ref": "#/parameters/x-key-api"
           },
           {
-            "in": "header",
-            "name": "x-token-api",
-            "required": true
+            "$ref": "#/parameters/x-token-api"
           },
           {
             "in": "body",
-            "name": "name"
+            "name": "name",
+            "required": false,
+            "example": "Pedro Henrique",
+            "description": "Nome do usuário"
           }
         ],
         "responses": {
@@ -115,17 +126,14 @@
     "/semester/": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna todos os períodos do usuário",
+        "description": "Retorna todas as informações de todos os períodos do usuário",
         "parameters": [{
-          "in": "header",
-          "name": "x-key-api",
-          "required": true
+          "$ref": "#/parameters/x-key-api"
         },
-        {
-          "in": "header",
-          "name": "x-token-api",
-          "required": true
-        }],
+          {
+            "$ref": "#/parameters/x-token-api"
+          }],
         "responses": {
           "200": {
             "description": "Retorna um objeto semesters contendo um array com todos os semesters daquele usuário",
@@ -154,28 +162,31 @@
       },
       "post": {
         "tags": [],
-        "description": "",
+        "summary": "Criar período",
+        "description": "Cria um período para o usuário",
         "parameters": [{
-          "in": "header",
-          "name": "x-key-api",
-          "required": true
+          "$ref": "#/parameters/x-key-api"
         },
-        {
-          "in": "header",
-          "name": "x-token-api",
-          "required": true
-        },{
+          {
+            "$ref": "#/parameters/x-token-api"
+          },{
           "in": "body",
           "name": "name",
-          "required": true
+          "required": true,
+          "description": "Nome do período para identificação",
+            "example": "2020/01"
         },{
           "in": "body",
           "name": "startDate",
-          "required": true
+          "required": true,
+            "description": "Data de início do período",
+            "example": "2020-06-01"
         },{
           "in": "body",
           "name": "endDate",
-          "required": true
+          "required": true,
+            "description": "Data de término do período",
+            "example": "2020-12-31"
         }],
         "responses": {
           "201": {
@@ -206,21 +217,20 @@
     "/semester/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna um período em específico",
+        "description": "Retorna o período correspondente ao id passado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "required": true
+            "required": true,
+            "description": "Id do período a ser buscado",
+            "example": "abcd1234"
           },{
-            "in": "header",
-            "name": "x-key-api",
-            "required": true
+            "$ref": "#/parameters/x-key-api"
           },
           {
-            "in": "header",
-            "name": "x-token-api",
-            "required": true
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
@@ -228,7 +238,28 @@
             "description": "Retorna o objeto semester buscado",
             "schema": {
               "type": "object",
-              "properties": {}
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nome do período"
+                },
+                "startDate": {
+                  "type": "Date",
+                  "example": "2020-06-01"
+                },
+                "endDate": {
+                  "type": "Date",
+                  "example": "2020-12-31"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "IDAUTHOR"
+                },
+                "create": {
+                  "type": "Date",
+                  "example": "2020-06-05"
+                }
+              }
             }
           },
           "400": {
@@ -246,36 +277,39 @@
       },
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Atualizar período",
+        "description": "Permite atualizar nome, data de início e data de término do período",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
           },{
-            "in": "header",
-            "name": "x-key-api",
-            "required": true
+            "$ref": "#/parameters/x-key-api"
           },
           {
-            "in": "header",
-            "name": "x-token-api",
-            "required": true
+            "$ref": "#/parameters/x-token-api"
           },
           {
             "in": "body",
             "name": "name",
-            "required": true
+            "required": false,
+            "example": "Novo nome",
+            "description": "Nome a ser atualizado do período"
           },
           {
             "in": "body",
             "name": "startDate",
-            "required": true
+            "required": false,
+            "description": "Data de início a ser atualizada",
+            "example": "2020-06-10"
           },
           {
             "in": "body",
             "name": "endDate",
-            "required": true
+            "required": false,
+            "description": "Data de término a ser atualizada",
+            "example": "2020-06-10"
           }
         ],
         "responses": {
@@ -305,21 +339,18 @@
       },
       "delete": {
         "tags": [],
-        "description": "",
+        "summary": "Deletar período",
+        "description": "Deleta um período específico do usuário",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
           },{
-            "in": "header",
-            "name": "x-key-api",
-            "required": true
+            "$ref": "#/parameters/x-key-api"
           },
           {
-            "in": "header",
-            "name": "x-token-api",
-            "required": true
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
@@ -350,22 +381,19 @@
     },
     "/semester/{id}/subjects": {
       "get": {
+        "summary" : "Retorna as disciplinas de um período específico",
+        "description": "Retorna todas as disciplinas e suas informações do período especificado",
         "tags": [],
-        "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
           },{
-            "in": "header",
-            "name": "x-key-api",
-            "required": true
+            "$ref": "#/parameters/x-key-api"
           },
           {
-            "in": "header",
-            "name": "x-token-api",
-            "required": true
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
@@ -398,21 +426,18 @@
     "/semester/{id}/subjects/grade": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna as notas de cada disciplina de um período específico",
+        "description": "Retorna as notas e a nota final de cada disciplina pertencente ao período especificado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
           },{
-            "in": "header",
-            "name": "x-key-api",
-            "required": true
+            "$ref": "#/parameters/x-key-api"
           },
           {
-            "in": "header",
-            "name": "x-token-api",
-            "required": true
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
@@ -451,18 +476,61 @@
     },
     "/semester/{id}/info": {
       "get": {
+        "summary": "Retorna as informações de um período específico",
         "tags": [],
-        "description": "",
+        "description": "Retorna alem das informações do próprio périodo, retorna também as disciplinas e as tarefas, provas e aulas cadastradas nessas disciplinas",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nome do período"
+                },
+                "start": {
+                  "type": "Date",
+                  "example": "2020-12-06"
+                },
+                "end": {
+                  "type": "Date",
+                  "example": "2020-12-06"
+                },
+                "subjects": {
+                  "type": "array",
+                  "example": [{
+                    "name": "Nome da disciplina",
+                    "exams": [],
+                    "tasks": [],
+                    "lessons": []
+                  }]
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar um id na requisição para recuperar as informações do período!"
+                }
+              }
+            }
           }
         }
       }
@@ -470,21 +538,134 @@
     "/subject/": {
       "get": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Retorna todas as disciplinas do usuário",
+        "description": "Retorna todas as informações de todas as disciplinas do usuário",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subjects": {
+                  "type": "array",
+                  "example":[
+                    {
+                      "name": "Nome da disciplina",
+                      "teacher": "Nome do professor",
+                      "school": "Noma da instituição de ensino",
+                      "author": "id do usuário",
+                      "semester": "id do período",
+                      "start": "2020-06-01",
+                      "end": "2020-12-31",
+                      "create": "2020-06-05",
+                      "finalGrade": 7.8,
+                      "grades": [
+                        {
+                          "value": 8.0,
+                          "weigth": 5
+                        }
+                      ]
+                    }
+                  ]}
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Criar disciplina",
+        "description": "Cria uma disciplina para o usuário",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "name",
+            "required": true,
+            "example": "Construção de Software",
+            "description": "Nome da disciplina"
+          },
+          {
+            "in": "body",
+            "name": "semester",
+            "required": true,
+            "example": "abcd1234",
+            "description": "Id do período em que a disciplina pertence"
+          },
+          {
+            "in": "body",
+            "name": "start",
+            "required": true,
+            "example": "2020-06-01",
+            "description": "Data de início da disciplina"
+          },
+          {
+            "in": "body",
+            "name": "end",
+            "required": true,
+            "example": "2020-12-01",
+            "description": "Data de término da disciplina"
+          },
+          {
+            "in": "body",
+            "name": "teacher",
+            "required": false,
+            "example": "Walisson",
+            "description": "Nome do professor que vai ministrar a disciplina"
+          },
+          {
+            "in": "body",
+            "name": "school",
+            "required": false,
+            "example": "UFG - INF",
+            "description": "Nome da instituição de ensino"
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Disciplina criada!"
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar uma disciplina para ser salva!"
+                }
+              }
+            }
           }
         }
       }
@@ -492,52 +673,168 @@
     "/subject/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna uma disciplina em específico",
+        "description": "Retorna a disciplina correspondente ao id passado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subjects": {
+                  "type": "array",
+                  "example":
+                    {
+                      "name": "Nome da disciplina",
+                      "teacher": "Nome do professor",
+                      "school": "Noma da instituição de ensino",
+                      "author": "id do usuário",
+                      "semester": "id do período",
+                      "start": "2020-06-01",
+                      "end": "2020-12-31",
+                      "create": "2020-06-05",
+                      "finalGrade": 7.8,
+                      "grades": [
+                        {
+                          "value": 8.0,
+                          "weigth": 5
+                        }
+                      ]
+                    }
+                  }
+              }
+            }
           },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar um id na requisição para buscar uma disciplina específica!"
+                }
+              }
+            }
           }
         }
       },
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Atualizar disciplina",
+        "description": "Permite atualizar nome, data de inicio e término, professor e instituição de ensino da disciplina",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "name",
+            "required": false,
+            "example": "Construção de Software",
+            "description": "Nome da disciplina"
+          },
+          {
+            "in": "body",
+            "name": "start",
+            "required": false,
+            "example": "2020-06-01",
+            "description": "Data de início da disciplina"
+          },
+          {
+            "in": "body",
+            "name": "end",
+            "required": false,
+            "example": "2020-12-01",
+            "description": "Data de término da disciplina"
+          },
+          {
+            "in": "body",
+            "name": "teacher",
+            "required": false,
+            "example": "Walisson",
+            "description": "Nome do professor que vai ministrar a disciplina"
+          },
+          {
+            "in": "body",
+            "name": "school",
+            "required": false,
+            "example": "UFG - INF",
+            "description": "Nome da instituição de ensino"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Disciplina atualizada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar um id na requisição para buscar uma disciplina específica!"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
         "tags": [],
-        "description": "",
+        "summary": "Deletar disciplina",
+        "description": "Deleta uma disciplina específica do usuário e todas as informações pertencentes a ela (tarefas, aulas, provas)",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Disciplina exlcuida!"
+                }
+              }
+            }
           }
         }
       }
@@ -545,17 +842,53 @@
     "/subject/{id}/exams": {
       "get": {
         "tags": [],
+        "summary": "Retorna todas as provas da disciplina",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exams": {
+                  "type": "array",
+                  "example":
+                  [{
+                    "name": "Nome de identificação da prova",
+                    "subject": {
+                      "id": "IDDISCIPLINA",
+                      "author": "IDUSUARIO"
+                    },
+                    "theme": "Tema da prova",
+                    "date": "2020-07-28",
+                    "create": "2020-06-10"
+                  }]
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar o id da disciplina na requisição para buscar as provas!"
+                }
+              }
+            }
           }
         }
       }
@@ -563,33 +896,106 @@
     "/subject/{id}/grade": {
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Registrar notas da disciplina",
+        "description": "Atualiza a nota da disciplina",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "grades",
+            "required": true,
+            "example": [{
+              "value": 8.2,
+              "weigth": 5
+            }],
+            "description": "Array de objetos que tem o atributo value (valor da nota) e weigth (peso da nota)"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Notas registradas!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar as notas para que sejam registradas na disciplina!"
+                }
+              }
+            }
           }
         }
       },
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna a nota da disciplina",
+        "description": "Retorna a nota final da disciplina e as notas calculadas para gerar as notas finais",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Nome da disciplina"
+                },
+                "finalGrade": {
+                  "type": "string",
+                  "example": 7.8
+                },
+                "grades": {
+                  "type": "array",
+                  "example": [{
+                    "value": 8.0,
+                    "weigth": 5
+                  }]
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar o id da disciplina na requisição para buscar as notas!"
+                }
+              }
+            }
           }
         }
       }
@@ -886,5 +1292,21 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {},
+  "parameters": {
+    "x-key-api": {
+      "name": "x-key-api",
+      "in": "header",
+      "description": "API Key do seu usuário",
+      "required": true,
+      "type": "string"
+    },
+    "x-token-api": {
+      "name": "x-token-api",
+      "in": "header",
+      "description": "API Key do seu usuário",
+      "required": true,
+      "type": "string"
+    }
+  }
 }

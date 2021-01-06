@@ -33,7 +33,7 @@ module.exports = router
 async function getAllSubsjects(req, res) {
     try {
         let subjects = await subjectController.getAllUserSubjects(req.user)
-        res.status(200).send(subjects)
+        res.status(200).send({ subjects: subjects })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
@@ -87,7 +87,7 @@ async function getExamsFromSubject(req, res) {
         let user = req.user
         let id = req.params.id
         let exams = await examController.getExamsFromSubject(user, id)
-        res.status(200).send(exams)
+        res.status(200).send({ exams: exams })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

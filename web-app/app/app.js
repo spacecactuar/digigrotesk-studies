@@ -29,6 +29,6 @@ app.use('/subject', subjectRoute)
 app.use('/exam', examRoute)
 app.use('/task', taskRoute)
 app.use('/lesson', lessonRoute)
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+app.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 module.exports = app

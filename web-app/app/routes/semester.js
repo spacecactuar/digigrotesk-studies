@@ -92,7 +92,7 @@ async function getSemesterInfo(req, res) {
         let user = req.user
         let id = req.params.id
         let semesterInfo = await semesterController.getSemesterInfo(user, id)
-        res.status(200).send({ semesterInfo: semesterInfo })
+        res.status(200).send(semesterInfo )
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
