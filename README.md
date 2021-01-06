@@ -28,7 +28,8 @@
 ## Sobre o Projeto
 
 Repositório do projeto para a matéria Construção de Software.
-**Digi Grotesk studies** é um software para gestão da vida acadêmica de discentes. Os discentes tem controle de seus períodos, disciplinas, tarefas, aulas, provas e afins de forma simples e visual, otimizando e facilitando seu dia a dia.
+**Digi Grotesk studies** é um software para gestão da vida acadêmica de discentes. Os discentes tem controle de seus períodos, disciplinas, tarefas, aulas, provas e afins de forma simples e visual, otimizando e facilitando seu dia a dia.<br>
+Por questões de  tempo para entrega do projeto o sistema virou uma API que entrega todos os requisitos salvando as informações academicas do usuário no banco de dados.
 
 ### Tecnologias Utilizadas
 
@@ -84,6 +85,12 @@ Com o framework mongoose a estrutura do banco de dados é criada de forma dinami
 ### Arquitetura
 - [Diagrama de Arquitetura](https://drive.google.com/file/d/1D3ytcmxb1eZ3RUNFNHrX8GmTNPnHovXS/view?usp=sharing)
 
+### API
+
+O projeto atende por meio de API todos os requisitos listados na documentação, portanto para auxilio do uso documentamos a API tilizando o Swagger.<br>
+Para ter acesso a documentação, primeiro rode o sistema, e depois basta acessar a seguinte url:<br>
+http://localhost:3000/documentation
+
 ---
 
 <!-- Documentation  -->
@@ -112,6 +119,7 @@ O documento de Requisitos é um documento muito extenso que abrange diferentes t
 
 ### Frontend
 
+###### Como citado mais acima a parte frontend do projeto foi abandonado, porem deixaremos aqui documentado quais eram as stacks escolhidas pela equipe
 A pasta **./public** é reponsável por armazenar o frontend. Onde as stacks escolhidas para comporem esse projeto são:
 
 - Angular (v7.1.4): será o framework que vamos utilizar para criar nossos controllers e fazer o gerenciamento de informação e uso da API Rest para comunicação com o backend;
