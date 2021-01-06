@@ -1,6 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('../swagger_output.json')
 
 const indexRoute = require('./routes/index')
 const userRoute = require('./routes/user')
@@ -27,5 +29,6 @@ app.use('/subject', subjectRoute)
 app.use('/exam', examRoute)
 app.use('/task', taskRoute)
 app.use('/lesson', lessonRoute)
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 module.exports = app

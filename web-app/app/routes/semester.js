@@ -27,7 +27,7 @@ module.exports = router
 async function getAllSemesters(req, res) {
     try {
         let semesters = await semesterController.getAllUserSemesters(req.user)
-        res.status(200).send(semesters)
+        res.status(200).send({ semesters: semesters })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
@@ -81,7 +81,7 @@ async function getSubjectsFromSemester(req, res) {
         let user = req.user
         let id = req.params.id
         let subjects = await subjectController.getSubjectsFromSemester(user, id)
-        res.status(200).send(subjects)
+        res.status(200).send({ subjects: subjects })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
@@ -91,8 +91,8 @@ async function getSemesterInfo(req, res) {
     try {
         let user = req.user
         let id = req.params.id
-        let semesterIno = await semesterController.getSemesterInfo(user, id)
-        res.status(200).send(semesterIno)
+        let semesterInfo = await semesterController.getSemesterInfo(user, id)
+        res.status(200).send({ semesterInfo: semesterInfo })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }
