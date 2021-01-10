@@ -378,5 +378,18 @@ describe('Testes unitários para o controller lesson', () => {
             }
             assert.deepEqual(result, resultExpected)
         });
+        it('CT024 - update quantity', () => {
+            let update = {
+                quantity: 90
+            }
+            let resultExpected = { code: 400, message: 'Não é possível atualizar a quantidade de aulas!' }
+            let result
+            try {
+                result = lessonController.validateUpdate(update)
+            } catch(error) {
+                result = error
+            }
+            assert.deepEqual(result, resultExpected)
+        });
     })
 })

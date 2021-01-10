@@ -4,7 +4,7 @@ const taskController = require('../../app/controllers/task')
 describe('Testes unitários para o controller task', () => {
     describe('validateTask()', () => {
         it('CT001 - task null', () => {
-            let resultExpected = { code: 406, message: 'É obrigatório passar uma tarefa para ser salva!' }
+            let resultExpected = { code: 400, message: 'É obrigatório passar uma tarefa para ser salva!' }
             let result
             try {
                 result = taskController.validateTask()
@@ -15,7 +15,7 @@ describe('Testes unitários para o controller task', () => {
         });
         it('CT002 - task undefined', () => {
             let task = {}
-            let resultExpected = { code: 406, message: 'É obrigatório passar uma tarefa para ser salva!' }
+            let resultExpected = { code: 400, message: 'É obrigatório passar uma tarefa para ser salva!' }
             let result
             try {
                 result = taskController.validateTask(task)
@@ -29,7 +29,7 @@ describe('Testes unitários para o controller task', () => {
                 subject: 'abcd1234',
                 deadline: '2020-12-31'
             }
-            let resultExpected = { code: 406, message: 'É obrigatório passar um(a) nome/identificação da tarefa!' }
+            let resultExpected = { code: 400, message: 'É obrigatório passar um(a) nome/identificação da tarefa!' }
             let result
             try {
                 result = taskController.validateTask(task)
