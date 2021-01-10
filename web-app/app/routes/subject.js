@@ -130,7 +130,7 @@ async function getSubjectAbsences(req, res) {
         let user = req.user
         let id = req.params.id
         let absences = await subjectController.getSubjectAbsences(user, id)
-        res.status(200).send(absences)
+        res.status(200).send({ absences: absences })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

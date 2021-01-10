@@ -20,7 +20,7 @@ module.exports = router
 async function getAllLessons(req, res) {
     try {
         let lessons = await lessonController.getAllUserLessons(req.user)
-        res.status(200).send(lessons)
+        res.status(200).send({ lessons: lessons })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

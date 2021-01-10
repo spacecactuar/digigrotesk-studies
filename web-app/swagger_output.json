@@ -1003,11 +1003,52 @@
     "/subject/absence": {
       "post": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Registrar ausência na disciplina",
+        "description": "Registrar ausências ocorridas nas aulas da disciplina",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "subject",
+            "required": true,
+            "example": "abcd1234",
+            "description": "Id da disciplina em que a ausência deve ser registrada"
+          },
+          {
+            "in": "body",
+            "name": "date",
+            "required": true,
+            "example": "2020-07-25",
+            "description": "Data em que a ausência na aula ocorreu"
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Ausência registrada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar os dados da ausência na aula!"
+                }
+              }
+            }
           }
         }
       }
@@ -1015,17 +1056,51 @@
     "/subject/{id}/absence": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna todas as ausências da disciplina",
+        "description": "Retorna todas as ausências de aulas registradas na disciplina",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "absences": {
+                  "type": "array",
+                  "example":
+                  [{
+                    "subject": {
+                      "id": "IDDISCIPLINA",
+                      "author": "IDUSUARIO"
+                    },
+                    "date": "2020-07-25",
+                    "create": "2020-07/26"
+                  }]
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       }
@@ -1033,17 +1108,43 @@
     "/subject/{id}/absence/percent": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna a porcentagem de ausência da disciplina",
+        "description": "Retorna a porcentagem de ausências de aula registrada na disciplina",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attendance": {
+                  "type": "string",
+                  "example": "78 %"
+                }
+              }
+            }
+          },
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "attendance": {
+                  "type": "string",
+                  "example": "Disciplina não encontrada!"
+                }
+              }
+            }
           }
         }
       }
@@ -1051,21 +1152,113 @@
     "/exam/": {
       "get": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Retorna todas as provas",
+        "description": "Retorna todas as provas de todas as disciplinas cadastradas para o usuário",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "exams": {
+                  "type": "array",
+                  "example":
+                  [{
+                    "name": "Nome de identificação da prova",
+                    "subject": {
+                      "id": "IDDISCIPLINA",
+                      "author": "IDUSUARIO"
+                    },
+                    "theme": "Tema da prova",
+                    "date": "2020-07-28",
+                    "create": "2020-06-10"
+                  }]
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Criar prova",
+        "description": "Criar uma prova para uma disciplina em específico",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "name",
+            "required": true,
+            "example": "Prova Um",
+            "description": "Nome de identificação da prova"
+          },
+          {
+            "in": "body",
+            "name": "subject",
+            "required": true,
+            "example": "abcd1234",
+            "description": "Id da disciplina em que a prova pertence"
+          },
+          {
+            "in": "body",
+            "name": "date",
+            "required": true,
+            "example": "2020-08-22",
+            "description": "Data de realização da prova"
+          },
+          {
+            "in": "body",
+            "name": "theme",
+            "required": false,
+            "example": "Memória principal e barramentos",
+            "description": "Conteúdo que vai ser abordado na prova"
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Prova criada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar uma prova para ser salva!"
+                }
+              }
+            }
           }
         }
       }
@@ -1073,58 +1266,167 @@
     "/exam/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna uma prova em específico",
+        "description": "Retorna a prova correspondente ao id passado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Prova Um"
+                },
+                "subject": {
+                  "type": "object",
+                  "example": {
+                    "id": "IDDISCIPLINA",
+                    "author": "IDUSUARIO"
+                  }
+                },
+                "theme": {
+                  "type": "string",
+                  "example": "Memória principal e barramentos"
+                },
+                "date": {
+                  "type": "date",
+                  "example": "2020-08-22"
+                },
+                "create": {
+                  "type": "date",
+                  "example": "2020-08-26"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Atualizar prova",
+        "description": "Permite atualizar nome, data de realização e conteúdo abordado da prova",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "name",
+            "required": false,
+            "example": "Prova Um",
+            "description": "Nome de identificação da prova"
+          },
+          {
+            "in": "body",
+            "name": "date",
+            "required": false,
+            "example": "2020-08-22",
+            "description": "Data de realização da prova"
+          },
+          {
+            "in": "body",
+            "name": "theme",
+            "required": false,
+            "example": "Memória principal e barramentos",
+            "description": "Conteúdo que vai ser abordado na prova"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Prova atualizada!"
+                }
+              }
+            }
           },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Não é possível atualizar a disciplina da prova!"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
         "tags": [],
-        "description": "",
+        "summary": "Deletar prova",
+        "description": "Deleta uma prova específica do usuário",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Prova deletada!"
+                }
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       }
@@ -1132,21 +1434,115 @@
     "/task/": {
       "get": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Retorna todas as tarefas",
+        "description": "Retorna todas as tarefas de todas as disciplinas cadastradas para o usuário",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tasks": {
+                  "type": "array",
+                  "example":
+                  [{
+                    "name": "Nome de identificação da tarefa",
+                    "subject": {
+                      "id": "IDDISCIPLINA",
+                      "author": "IDUSUARIO"
+                    },
+                    "observation": "Lista de revisão - Se tiver dúvidas perguntar depois",
+                    "deadline": "2020-07-28",
+                    "realizedDate": "2020-07-29",
+                    "realized": "true",
+                    "create": "2020-06-10"
+                  }]
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Criar tarefa",
+        "description": "Cria uma tarefa para uma disciplina em específico",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "name",
+            "required": true,
+            "example": "Lista Um",
+            "description": "Nome de identificação da tarefa"
+          },
+          {
+            "in": "body",
+            "name": "subject",
+            "required": true,
+            "example": "abcd1234",
+            "description": "Id da disciplina em que a tarefa pertence"
+          },
+          {
+            "in": "body",
+            "name": "deadline",
+            "required": true,
+            "example": "2020-08-22",
+            "description": "Data de entrega da tarefa"
+          },
+          {
+            "in": "body",
+            "name": "observation",
+            "required": false,
+            "example": "Se houver dúvia mandar por email",
+            "description": "Uma observação pertinente à tarefa"
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Tarefa criada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar uma tarefa para ser salva!"
+                }
+              }
+            }
           }
         }
       }
@@ -1154,49 +1550,175 @@
     "/task/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna uma tarefa em específico",
+        "description": "Retorna a tarefa correspondente ao id passado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Lista Um"
+                },
+                "observation": {
+                  "type": "string",
+                  "example": "Se houver dúvia mandar por email"
+                },
+                "deadline": {
+                  "type": "date",
+                  "example": "2020-08-26"
+                },
+                "subject": {
+                  "type": "object",
+                  "example": {
+                    "id": "IDDISCIPLINA",
+                    "author": "IDUSUARIO"
+                  }
+                },
+                "realized": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "realizedDate": {
+                  "type": "date",
+                  "example": "2020-08-22"
+                },
+                "create": {
+                  "type": "date",
+                  "example": "2020-08-26"
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Atualizar tarefa",
+        "description": "Permite atualizar o nome, observação e data de entrega da tarefa",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "name",
+            "required": false,
+            "example": "Lista Um",
+            "description": "Nome de identificação da tarefa"
+          },
+          {
+            "in": "body",
+            "name": "deadline",
+            "required": false,
+            "example": "2020-08-22",
+            "description": "Data de entrega da tarefa"
+          },
+          {
+            "in": "body",
+            "name": "observation",
+            "required": false,
+            "example": "Se houver dúvia mandar por email",
+            "description": "Uma observação pertinente à tarefa"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Tarefa atualizada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Não é possível atualizar o author da tarefa!"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
         "tags": [],
-        "description": "",
+        "summary": "Deletar tarefa",
+        "description": "Deleta uma tarefa específica do usuário",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Tarefa deletada!"
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       }
@@ -1204,17 +1726,43 @@
     "/task/{id}/realized": {
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Registrar tarefa como entregue",
+        "description": "Registra a tarefa como entregue, marcando assim a data com que a tarefa foi entregue",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Tarefa marcada como realizada!"
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       }
@@ -1222,21 +1770,112 @@
     "/lesson/": {
       "get": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Retorna todas as aulas",
+        "description": "Retorna todas as aulas de todas as disciplinas cadastradas para o usuário",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          }
+        ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "lessons": {
+                  "type": "array",
+                  "example":
+                  [{
+                    "subject": {
+                      "id": "IDDISCIPLINA",
+                      "author": "IDUSUARIO"
+                    },
+                    "duration": 90,
+                    "realizationDays": [{
+                      "day": "mon",
+                      "start": "18:50"
+                    }],
+                    "quantity": 64,
+                    "create": "2020-07-15"
+                  }]
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "post": {
         "tags": [],
-        "description": "",
-        "parameters": [],
+        "summary": "Criar aula",
+        "description": "Cria uma aula para uma disciplina em específico",
+        "parameters": [
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "subject",
+            "required": true,
+            "example": "abcd12345",
+            "description": "Id da disciplina em que a aula pertence"
+          },
+          {
+            "in": "body",
+            "name": "duration",
+            "required": true,
+            "example": 90,
+            "description": "Tempo de duração da aula (em minutos)"
+          },
+          {
+            "in": "body",
+            "name": "realizationDays",
+            "required": true,
+            "example": [{
+              "day": "mon",
+              "start": "18:50"
+            }],
+            "description": "Um array de objetos contendo os dias de realização da aula. O objeto contem o atributo day, que representa qual dia da semana a aula vai ser realizada ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'], e o outro atributo é start que determina o horário de início da aula"
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Created"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Aula criada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "É obrigatório passar uma aula para ser salva!"
+                }
+              }
+            }
           }
         }
       }
@@ -1244,49 +1883,165 @@
     "/lesson/{id}": {
       "get": {
         "tags": [],
-        "description": "",
+        "summary": "Retorna uma aula em específico",
+        "description": "Retorna a aula correspondente ao id passado",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "subject": {
+                  "type": "object",
+                  "example": {
+                    "id": "IDDISCIPLINA",
+                    "author": "IDUSUARIO"
+                  }
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 90
+                },
+                "realizationDays": {
+                  "type": "object",
+                  "example": [{
+                  "day": "mon",
+                  "start": "18:50"
+                }]},
+                "quantity": {
+                  "type": "number",
+                  "example": 64
+                },
+                "create": {
+                  "type": "date",
+                  "example": "2020-07-10"
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       },
       "put": {
         "tags": [],
-        "description": "",
+        "summary": "Atualizar aula",
+        "description": "Permite atualizar os dias de realização da aula e a duração",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
+          },
+          {
+            "in": "body",
+            "name": "duration",
+            "required": false,
+            "example": 90,
+            "description": "Tempo de duração da aula (em minutos)"
+          },
+          {
+            "in": "body",
+            "name": "realizationDays",
+            "required": false,
+            "example": [{
+              "day": "mon",
+              "start": "18:50"
+            }],
+            "description": "Um array de objetos contendo os dias de realização da aula. O objeto contem o atributo day, que representa qual dia da semana a aula vai ser realizada ['mon', 'tue', 'wed', 'thu', 'fri', 'sat'], e o outro atributo é start que determina o horário de início da aula"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Aula atualizada!"
+                }
+              }
+            }
+          },
+          "400": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Não é possível atualizar a disciplina da aula!"
+                }
+              }
+            }
           }
         }
       },
       "delete": {
         "tags": [],
-        "description": "",
+        "summary": "Deletar aula",
+        "description": "Deleta uma aula específica do usuário",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "$ref": "#/parameters/x-key-api"
+          },
+          {
+            "$ref": "#/parameters/x-token-api"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Aula deletada!"
+                }
+              }
+            }
+          },
+          "500": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Erro interno do servidor"
+                }
+              }
+            }
           }
         }
       }

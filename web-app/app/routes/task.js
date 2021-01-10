@@ -22,7 +22,7 @@ module.exports = router
 async function getAllTasks(req, res) {
     try {
         let tasks = await taskController.getAllUserTasks(req.user)
-        res.status(200).send(tasks)
+        res.status(200).send({ tasks: tasks })
     } catch(error) {
         res.status(error.code || 500).send(error.message)
     }

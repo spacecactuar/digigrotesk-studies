@@ -112,7 +112,7 @@ async function updateLesson(user, id, updateLesson) {
         return lessonRepository.updateById(user._id, id, updateLesson)
     } catch(error) {
         console.error(`[updateLesson] Erro ao atualizar lesson ${id} do user ${user._id} - ${user.email}. ${error.message}`)
-        throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
     }
 }
 module.exports.updateLesson = updateLesson
@@ -121,6 +121,7 @@ function validateUpdate(update) {
     try {
         if (update.subject) throw { code: 400, message: 'Não é possível atualizar a disciplina da aula!' }
         if (update.create) throw { code: 400, message: 'Não é possível atualizar a data de criação da aula!' }
+        if (update.quantity) throw { code: 400, message: 'Não é possível atualizar a quantidade de aulas!' }
 
         if (update.realizationDays) {
             if (update.realizationDays.length == 0) throw { code: 400, message: 'Não é possível apagar os dias da semana que a aula vai ser realizada!' }

@@ -93,7 +93,7 @@ async function deleteExam(user, id) {
         return await examRepository.deleteById(user._id, id)
     } catch(error) {
         console.error(`[deleteExam] Erro ao deletar exam ${id} do user ${user._id} - ${user.email}. ${error.message}`)
-        throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
     }
 }
 module.exports.deleteExam = deleteExam

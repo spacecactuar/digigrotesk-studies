@@ -25,8 +25,8 @@ module.exports.createTask = createTask
 
 function validateTask(task) {
     try {
-        if (!task || Object.keys(task).length == 0 ) throw { code: 406, message: 'É obrigatório passar uma tarefa para ser salva!' }
-        if (!task.name) throw { code: 406, message: 'É obrigatório passar um(a) nome/identificação da tarefa!' }
+        if (!task || Object.keys(task).length == 0 ) throw { code: 400, message: 'É obrigatório passar uma tarefa para ser salva!' }
+        if (!task.name) throw { code: 400, message: 'É obrigatório passar um(a) nome/identificação da tarefa!' }
         if (!task.subject) throw { code: 400, message: 'É obrigatório passar a qual disciplina esta tarefa vai pertencer!' }
         if (!task.deadline) throw { code: 400, message: 'É obrigatório passar a data de entrega da tarefa!' }
     } catch(error) {
@@ -96,7 +96,7 @@ async function deleteTask(user, id) {
         return taskRepository.deleteById(user._id, id)
     } catch(error) {
         console.error(`[deleteTask] Erro ao deletar task ${id} do user ${user._id} - ${user.email}. ${error.message}`)
-        throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
     }
 }
 module.exports.deleteTask = deleteTask
@@ -130,7 +130,7 @@ async function realizedTask(user, id) {
         return await taskRepository.updateById(user._id, id, set)
     } catch(error) {
         console.error(`[realizedTask] Erro ao marcar task ${id} do user ${user._id} - ${user.email} como realized. ${error.message}`)
-        throw error
+        throw { code: 500, message: 'Erro interno do servidor' }
     }
 }
 module.exports.realizedTask = realizedTask
